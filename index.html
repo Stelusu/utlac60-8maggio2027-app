@@ -10,11 +10,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="UTLAC 60">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#070b14">
+  <meta name="theme-color" content="#020202">
   <meta name="format-detection" content="telephone=no">
   
-  <!-- Apple Touch Icon (SVG encoded mountain icon) -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%230b1120'/><path d='M30 135 L75 55 L105 105 L125 70 L160 135 Z' fill='%2310b981'/><path d='M65 73 L75 55 L85 73 L75 80 Z' fill='%23ecfdf5'/><path d='M120 79 L125 70 L132 79 Z' fill='%23ecfdf5'/><circle cx='140' cy='45' r='12' fill='%23f59e0b'/></svg>">
+  <!-- Apple Touch Icon (Green Oasis palette) -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23020202'/><path d='M30 135 L75 55 L105 105 L125 70 L160 135 Z' fill='%2316DB65'/><path d='M65 73 L75 55 L85 73 L75 80 Z' fill='%230D2818'/><path d='M120 79 L125 70 L132 79 Z' fill='%230D2818'/><circle cx='140' cy='45' r='12' fill='%23058C42'/></svg>">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -29,21 +29,12 @@
       theme: {
         extend: {
           colors: {
-            trail: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              400: '#34d399',
-              500: '#10b981',
-              600: '#059669',
-              glow: '#22c55e',
-            },
-            alpine: {
-              950: '#070b14',
-              900: '#0b1120',
-              850: '#0f172a',
-              800: '#131e36',
-              700: '#1e293b',
-              600: '#334155',
+            oasis: {
+              black: '#020202',
+              evergreen: '#0D2818',
+              forest: '#04471C',
+              sea: '#058C42',
+              malachite: '#16DB65',
             }
           },
           fontFamily: {
@@ -57,22 +48,20 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
     body {
-      background-color: #070b14;
+      background-color: #020202;
       color: #f1f5f9;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       padding-top: env(safe-area-inset-top);
-      padding-bottom: calc(env(safe-area-inset-bottom) + 85px);
+      padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
       -webkit-font-smoothing: antialiased;
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* iOS Native feel: prevent accidental elastic layout drag on non-scrollable containers */
     .ios-momentum-scroll {
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: contain;
     }
 
-    /* Fix iOS input zoom on focus */
     input, select, textarea {
       font-size: 16px !important;
     }
@@ -85,25 +74,25 @@
       background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: #334155;
+      background: #04471C;
       border-radius: 9999px;
     }
 
     .glass-panel {
-      background: rgba(15, 23, 42, 0.82);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 40, 24, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(4, 71, 28, 0.6);
     }
     .glass-card-hover {
       transition: all 0.15s ease-out;
     }
     .glass-card-hover:active {
       transform: scale(0.985);
-      border-color: rgba(52, 211, 153, 0.4);
+      border-color: rgba(22, 219, 101, 0.4);
     }
-    .glow-emerald {
-      box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.4);
+    .glow-malachite {
+      box-shadow: 0 0 20px -3px rgba(22, 219, 101, 0.35);
     }
     .badge-pulse {
       animation: pulse 2s infinite;
@@ -114,38 +103,19 @@
     }
   </style>
 </head>
-<body class="min-h-screen antialiased selection:bg-emerald-500 selection:text-black ios-momentum-scroll">
+<body class="min-h-screen antialiased selection:bg-[#16DB65] selection:text-black ios-momentum-scroll">
 
-  <!-- iPhone Install Prompt Banner (Visible on mobile web browser) -->
-  <div id="iosInstallBanner" class="bg-gradient-to-r from-emerald-900/90 via-slate-900 to-slate-950 border-b border-emerald-500/30 px-4 py-2.5 text-xs flex items-center justify-between gap-2 transition-all">
-    <div class="flex items-center gap-2.5 min-w-0">
-      <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
-        <i class="ph-bold ph-device-mobile text-base"></i>
-      </div>
-      <p class="truncate text-slate-300">
-        <strong class="text-white">Usa come App su iPhone:</strong> Senza barre del browser.
-      </p>
-    </div>
-    <div class="flex items-center gap-1.5 flex-shrink-0">
-      <button onclick="openModal('iosInstallModal')" class="px-2.5 py-1 rounded-md bg-emerald-500 text-slate-950 font-bold text-[11px]">
-        Come fare
-      </button>
-      <button onclick="dismissInstallBanner()" class="text-slate-400 hover:text-white p-1">
-        <i class="ph-bold ph-x"></i>
-      </button>
-    </div>
-  </div>
-
-  <header class="border-b border-slate-800 bg-alpine-900/95 backdrop-blur sticky top-0 z-30">
+  <!-- Sticky Top Header -->
+  <header class="border-b border-[#04471C]/60 bg-[#020202]/95 backdrop-blur sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-2.5 flex items-center justify-between gap-3">
       <div class="flex items-center space-x-2.5">
-        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg flex-shrink-0">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-[#04471C] via-[#058C42] to-[#16DB65] flex items-center justify-center text-[#020202] font-black shadow-lg flex-shrink-0">
           <i class="ph-bold ph-mountains text-xl sm:text-2xl"></i>
         </div>
         <div class="min-w-0">
           <div class="flex items-center gap-1.5">
             <h1 class="text-sm sm:text-lg font-bold tracking-tight text-white truncate">UTLAC 60</h1>
-            <span class="text-[9px] sm:text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            <span class="text-[9px] sm:text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-[#16DB65]/15 text-[#16DB65] border border-[#16DB65]/30">
               8 Maggio 2027
             </span>
           </div>
@@ -155,33 +125,31 @@
 
       <div class="flex items-center gap-1.5 text-xs">
         <div class="glass-panel px-2.5 py-1 rounded-lg hidden sm:flex items-center gap-1.5 text-[11px]">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 badge-pulse"></span>
-          <span id="header-countdown" class="font-mono font-bold text-emerald-300">-- gg</span>
+          <span class="w-2 h-2 rounded-full bg-[#16DB65] badge-pulse"></span>
+          <span id="header-countdown" class="font-mono font-bold text-[#16DB65]">-- gg</span>
         </div>
 
-        <button onclick="jumpToCurrentWeek()" class="glass-panel hover:bg-slate-800 active:scale-95 px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-emerald-400 font-semibold border border-slate-700 transition flex items-center gap-1">
-          <i class="ph-bold ph-crosshair text-emerald-400"></i>
+        <button onclick="jumpToCurrentWeek()" class="glass-panel hover:bg-[#0D2818] active:scale-95 px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-[#16DB65] font-semibold border border-[#04471C] transition flex items-center gap-1">
+          <i class="ph-bold ph-crosshair text-[#16DB65]"></i>
           <span class="hidden sm:inline">Oggi /</span><span>W1</span>
         </button>
 
-        <button onclick="openAddWorkoutModal()" class="bg-emerald-500 active:scale-95 text-slate-950 font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition glow-emerald">
+        <button onclick="openAddWorkoutModal()" class="bg-[#16DB65] hover:bg-[#058C42] active:scale-95 text-[#020202] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition glow-malachite">
           <i class="ph-bold ph-plus text-sm"></i>
           <span class="hidden sm:inline">Nuovo</span>
         </button>
 
+        <!-- Dropdown Menu for Data Export/Import -->
         <div class="relative group">
-          <button class="p-1.5 sm:p-2 rounded-lg bg-slate-800 active:bg-slate-700 text-slate-300 border border-slate-700" title="Altro">
+          <button class="p-1.5 sm:p-2 rounded-lg bg-[#0D2818] active:bg-[#04471C] text-slate-300 border border-[#04471C]" title="Opzioni dati">
             <i class="ph-bold ph-dots-three-vertical text-base"></i>
           </button>
-          <div class="absolute right-0 mt-1 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-1.5 hidden group-hover:block z-40">
-            <button onclick="openModal('iosInstallModal')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-emerald-400 flex items-center gap-2 text-xs font-semibold">
-              <i class="ph-bold ph-device-mobile"></i> Salva su iPhone Home
+          <div class="absolute right-0 mt-1 w-44 bg-[#0D2818] border border-[#04471C] rounded-xl shadow-2xl p-1.5 hidden group-hover:block z-40">
+            <button onclick="exportData()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#04471C] text-slate-300 flex items-center gap-2 text-xs">
+              <i class="ph ph-download-simple text-[#16DB65]"></i> Esporta Dati (JSON)
             </button>
-            <button onclick="exportData()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 flex items-center gap-2 text-xs">
-              <i class="ph ph-download-simple text-emerald-400"></i> Esporta Dati (JSON)
-            </button>
-            <button onclick="document.getElementById('importFileInput').click()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 flex items-center gap-2 text-xs">
-              <i class="ph ph-upload-simple text-sky-400"></i> Importa Dati
+            <button onclick="document.getElementById('importFileInput').click()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#04471C] text-slate-300 flex items-center gap-2 text-xs">
+              <i class="ph ph-upload-simple text-emerald-400"></i> Importa Dati
             </button>
             <input type="file" id="importFileInput" onchange="importData(event)" class="hidden" accept=".json">
           </div>
@@ -192,29 +160,29 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
 
-    <!-- KPI Row -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+    <!-- KPI Row: 3 Clean Minimal Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
       
       <!-- Weight KPI -->
       <div class="glass-panel glass-card-hover rounded-2xl p-4 relative overflow-hidden">
         <div class="flex items-center justify-between text-slate-400 mb-1.5">
           <span class="text-[11px] uppercase font-bold tracking-wider">Peso Attuale</span>
-          <button onclick="openModal('weightModal')" class="text-xs text-emerald-400 hover:underline flex items-center gap-1 font-semibold">
+          <button onclick="openModal('weightModal')" class="text-xs text-[#16DB65] hover:underline flex items-center gap-1 font-semibold">
             <i class="ph-bold ph-plus"></i> Aggiorna
           </button>
         </div>
         <div class="flex items-baseline gap-2">
           <span id="kpi-current-weight" class="text-3xl font-extrabold text-white">89.0</span>
           <span class="text-xs text-slate-400">kg</span>
-          <span id="kpi-weight-diff" class="text-xs font-semibold text-emerald-400 ml-auto">-0.0 kg</span>
+          <span id="kpi-weight-diff" class="text-xs font-semibold text-[#16DB65] ml-auto">-0.0 kg</span>
         </div>
         <div class="mt-2.5">
           <div class="flex justify-between text-[11px] text-slate-400 mb-1">
             <span>Target: 78.0 kg</span>
-            <span id="kpi-weight-percent" class="text-emerald-400 font-bold">0%</span>
+            <span id="kpi-weight-percent" class="text-[#16DB65] font-bold">0%</span>
           </div>
-          <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-            <div id="kpi-weight-bar" class="bg-emerald-500 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          <div class="w-full bg-[#020202] rounded-full h-1.5 overflow-hidden border border-[#04471C]">
+            <div id="kpi-weight-bar" class="bg-[#16DB65] h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
           </div>
         </div>
       </div>
@@ -223,7 +191,7 @@
       <div class="glass-panel glass-card-hover rounded-2xl p-4">
         <div class="flex items-center justify-between text-slate-400 mb-1.5">
           <span class="text-[11px] uppercase font-bold tracking-wider" id="kpi-volume-label">Km Settimana</span>
-          <i class="ph ph-sneaker-move text-lg text-sky-400"></i>
+          <i class="ph ph-sneaker-move text-lg text-[#16DB65]"></i>
         </div>
         <div class="flex items-baseline gap-1.5">
           <span id="kpi-week-km" class="text-3xl font-extrabold text-white">0.0</span>
@@ -232,10 +200,10 @@
         <div class="mt-2.5">
           <div class="flex justify-between text-[11px] text-slate-400 mb-1">
             <span>Avanzamento Volume</span>
-            <span id="kpi-km-percent" class="text-sky-400 font-bold">0%</span>
+            <span id="kpi-km-percent" class="text-[#16DB65] font-bold">0%</span>
           </div>
-          <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-            <div id="kpi-km-bar" class="bg-sky-400 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          <div class="w-full bg-[#020202] rounded-full h-1.5 overflow-hidden border border-[#04471C]">
+            <div id="kpi-km-bar" class="bg-[#058C42] h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
           </div>
         </div>
       </div>
@@ -244,7 +212,7 @@
       <div class="glass-panel glass-card-hover rounded-2xl p-4">
         <div class="flex items-center justify-between text-slate-400 mb-1.5">
           <span class="text-[11px] uppercase font-bold tracking-wider">Dislivello D+</span>
-          <i class="ph ph-trend-up text-lg text-amber-400"></i>
+          <i class="ph ph-trend-up text-lg text-emerald-400"></i>
         </div>
         <div class="flex items-baseline gap-1.5">
           <span id="kpi-week-elev" class="text-3xl font-extrabold text-white">0</span>
@@ -253,38 +221,22 @@
         <div class="mt-2.5">
           <div class="flex justify-between text-[11px] text-slate-400 mb-1">
             <span>Target Montagna</span>
-            <span id="kpi-elev-percent" class="text-amber-400 font-bold">0%</span>
+            <span id="kpi-elev-percent" class="text-emerald-400 font-bold">0%</span>
           </div>
-          <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-            <div id="kpi-elev-bar" class="bg-amber-400 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+          <div class="w-full bg-[#020202] rounded-full h-1.5 overflow-hidden border border-[#04471C]">
+            <div id="kpi-elev-bar" class="bg-[#16DB65] h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
           </div>
         </div>
-      </div>
-
-      <!-- Right Knee Health Monitor -->
-      <div class="glass-panel glass-card-hover rounded-2xl p-4 border-l-4 border-l-emerald-500">
-        <div class="flex items-center justify-between text-slate-400 mb-1.5">
-          <span class="text-[11px] uppercase font-bold tracking-wider">Ginocchio Dx</span>
-          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400">Post LCA/Menisco</span>
-        </div>
-        <div class="flex items-baseline justify-between">
-          <span id="kpi-knee-status" class="text-xl font-bold text-emerald-400">Ottimale</span>
-          <span class="text-xs text-slate-400">Dolore: <strong id="kpi-knee-pain" class="text-white">0</strong>/10</span>
-        </div>
-        <p class="text-[11px] text-slate-400 mt-2.5 truncate">
-          Spanish Squat & Passo corto in discesa
-        </p>
       </div>
 
     </div>
 
-    <div class="glass-panel rounded-2xl p-5 border border-slate-800 shadow-xl space-y-4">
-      
-      <!-- Top selector: Month Tabs and Macro-phase Info -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
+    <!-- Periodization & Month Selector -->
+    <div class="glass-panel rounded-2xl p-5 border border-[#04471C] shadow-xl space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[#04471C]/80">
         <div>
           <h2 class="text-base font-bold text-white flex items-center gap-2">
-            <i class="ph-bold ph-calendar text-emerald-400"></i>
+            <i class="ph-bold ph-calendar text-[#16DB65]"></i>
             Pianificazione Allenamenti (34 Settimane)
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">Seleziona il Mese e la Settimana per consultare o modificare gli allenamenti</p>
@@ -303,24 +255,23 @@
       <div class="flex items-center gap-2 overflow-x-auto pt-1 pb-1" id="week-tabs-container">
         <!-- Injected via JS -->
       </div>
-
     </div>
 
+    <!-- Main Content: Left = Daily Workouts, Right = Weight Trajectory & Nutrition -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <!-- Left 2 Cols: Daily Workouts of Active Week -->
+      <!-- Left 2 Cols: Workouts List -->
       <div class="lg:col-span-2 space-y-4">
-        
         <div class="flex items-center justify-between px-1">
           <div>
             <h3 class="text-base font-bold text-white flex items-center gap-2">
-              <span id="active-week-title" class="text-emerald-400 font-extrabold">Settimana 1</span>
+              <span id="active-week-title" class="text-[#16DB65] font-extrabold">Settimana 1</span>
               <span id="active-week-dates" class="text-xs text-slate-400 font-normal">(14 Set - 20 Set)</span>
             </h3>
             <p id="active-week-focus" class="text-xs text-slate-400 mt-0.5">Fase 1: Base & Cut · Target peso: 88.3 kg</p>
           </div>
-          <button onclick="openAddWorkoutModal()" class="text-xs px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 flex items-center gap-1.5 font-semibold transition">
-            <i class="ph-bold ph-plus"></i> Aggiungi Giorno
+          <button onclick="openAddWorkoutModal()" class="text-xs px-3 py-1.5 rounded-lg bg-[#0D2818] hover:bg-[#04471C] text-[#16DB65] border border-[#04471C] flex items-center gap-1.5 font-semibold transition">
+            <i class="ph-bold ph-plus"></i> Aggiungi Sessione
           </button>
         </div>
 
@@ -328,53 +279,36 @@
         <div id="active-workouts-list" class="space-y-3">
           <!-- Injected via renderActiveWeek() -->
         </div>
-
       </div>
 
-      <!-- Right Col: Weight Chart, Knee Protocol & Nutrition -->
+      <!-- Right Col: Weight Chart & Nutrition -->
       <div class="space-y-4">
 
         <!-- Weight Trajectory Chart Card -->
-        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800 shadow-xl space-y-3">
+        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#04471C] shadow-xl space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <i class="ph-bold ph-chart-line-up text-emerald-400 text-lg"></i>
-              <h3 class="text-sm font-bold text-white">Traiettoria Peso (89 $\to$ 78 kg)</h3>
+              <i class="ph-bold ph-chart-line-up text-[#16DB65] text-lg"></i>
+              <h3 class="text-sm font-bold text-white">Traiettoria Peso (89 &rarr; 78 kg)</h3>
             </div>
-            <button onclick="openModal('weightModal')" class="text-xs text-emerald-400 hover:underline font-semibold flex items-center gap-1">
+            <button onclick="openModal('weightModal')" class="text-xs text-[#16DB65] hover:underline font-semibold flex items-center gap-1">
               <i class="ph-bold ph-plus"></i> Registra
             </button>
           </div>
           <p class="text-[11px] text-slate-400">Target calo: -0.7 kg / settimana a digiuno la domenica.</p>
-          <div class="h-48 sm:h-52 w-full relative">
+          <div class="h-52 w-full relative">
             <canvas id="weightChart"></canvas>
           </div>
         </div>
 
-        <!-- Knee Protocol Card (LCA & Menisco Dx) -->
-        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800 space-y-3 border-l-4 border-l-emerald-500">
-          <div class="flex items-center gap-2">
-            <i class="ph-bold ph-shield-check text-emerald-400 text-lg"></i>
-            <h3 class="text-sm font-bold text-white">Protocollo Ginocchio Destro</h3>
-          </div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Per proteggere l'LCA e il menisco ricostruiti:
-          </p>
-          <ul class="text-[11px] text-slate-300 space-y-2 list-disc list-inside">
-            <li><strong class="text-emerald-400">Spanish Squat:</strong> 3x30" isometrico prima di ogni corsa/gym per riscaldare il tendine rotuleo.</li>
-            <li><strong class="text-emerald-400">Discese Bollettone:</strong> baricentro basso, passi rapidi e corti, ammortizza con avampiede (mai impatti a gamba tesa).</li>
-            <li><strong class="text-emerald-400">Home Gym Lunedì:</strong> Stacco rumeno + Bulgarian Split per rinforzare femorali e glutei stabilizzatori.</li>
-          </ul>
-        </div>
-
         <!-- Nutrition & Office Tips Card -->
-        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800 space-y-2.5">
+        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#04471C] space-y-2.5">
           <div class="flex items-center gap-2">
-            <i class="ph-bold ph-fork-knife text-amber-400 text-lg"></i>
+            <i class="ph-bold ph-fork-knife text-[#058C42] text-lg"></i>
             <h3 class="text-sm font-bold text-white">Promemoria Mensa & Orari Ufficio</h3>
           </div>
           <div class="text-[11px] text-slate-300 space-y-1.5 leading-relaxed">
-            <p><strong>Mensa:</strong> 80g di riso semplice (100g giovedì post-Bollettone), proteina pulita (pollo/tonno/uova) e verdure a sazietà. Limita l'olio a 1 cucchiaio.</p>
+            <p><strong>Mensa:</strong> 80g di riso semplice (100g post-Bollettone), proteina pulita (pollo/tonno/uova) e verdure a sazietà. Limita l'olio a 1 cucchiaio.</p>
             <p><strong>Spuntino 17:00:</strong> 1 banana + caffè prima di tornare a casa per avere glicogeno pronto alle 19:00.</p>
             <p><strong>Acqua:</strong> Bevi almeno 2L d'acqua in ufficio tra le 7:50 e le 18:30.</p>
           </div>
@@ -386,99 +320,32 @@
 
   </main>
 
-  <!-- Floating Bottom App Navigation Bar (Optimized for iPhone Thumb Reach) -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/90 backdrop-blur-xl border-t border-slate-800/90 px-3 pt-2 pb-[calc(env(safe-area-inset-bottom)+8px)]">
-    <div class="max-w-md mx-auto grid grid-cols-4 gap-1 items-center">
-      
-      <button onclick="jumpToCurrentWeek(); tryVibrate();" class="flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 active:text-emerald-400 active:bg-slate-900 transition">
-        <i class="ph-bold ph-calendar-check text-xl"></i>
-        <span class="text-[10px] font-semibold mt-0.5">Oggi</span>
-      </button>
-
-      <button onclick="openAddWorkoutModal(); tryVibrate();" class="flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 active:text-emerald-400 active:bg-slate-900 transition">
-        <div class="w-8 h-8 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-lg -mt-3 mb-0.5">
-          <i class="ph-bold ph-plus text-base"></i>
-        </div>
-        <span class="text-[10px] font-bold text-emerald-400">Allenamento</span>
-      </button>
-
-      <button onclick="openModal('weightModal'); tryVibrate();" class="flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 active:text-emerald-400 active:bg-slate-900 transition">
-        <i class="ph-bold ph-scales text-xl"></i>
-        <span class="text-[10px] font-semibold mt-0.5">Pesa</span>
-      </button>
-
-      <button onclick="openModal('iosInstallModal'); tryVibrate();" class="flex flex-col items-center justify-center py-1 rounded-xl text-slate-400 active:text-emerald-400 active:bg-slate-900 transition">
-        <i class="ph-bold ph-device-mobile text-xl"></i>
-        <span class="text-[10px] font-semibold mt-0.5">App iOS</span>
-      </button>
-
-    </div>
-  </nav>
-
-  <!-- iOS PWA Installation Guide Modal -->
-  <div id="iosInstallModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="glass-panel w-full sm:max-w-md rounded-t-3xl sm:rounded-2xl p-6 border border-slate-700 relative shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-      <div class="w-12 h-1.5 bg-slate-700 rounded-full mx-auto sm:hidden -mt-2 mb-2"></div>
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-            <i class="ph-bold ph-apple-logo text-lg"></i>
-          </div>
-          <h3 class="text-base font-bold text-white">Come installare su iPhone</h3>
-        </div>
-        <button onclick="closeModal('iosInstallModal')" class="text-slate-400 hover:text-white p-1">
-          <i class="ph-bold ph-x text-lg"></i>
-        </button>
-      </div>
-
-      <div class="space-y-3.5 text-xs text-slate-300">
-        <p class="text-slate-400">
-          Puoi salvare questa dashboard direttamente sulla schermata Home del tuo iPhone per aprirla a tutto schermo come una vera app nativa:
-        </p>
-
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-3">
-          <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
-          <div>
-            <p class="font-bold text-white">Apri questa pagina in Safari</p>
-            <p class="text-slate-400 text-[11px] mt-0.5">Tocca il pulsante <strong class="text-white">Condividi</strong> in basso (l'icona con il quadrato e la freccia verso l'alto <i class="ph-bold ph-share-network"></i>).</p>
-          </div>
-        </div>
-
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-3">
-          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
-          <div>
-            <p class="font-bold text-white">"Aggiungi alla schermata Home"</p>
-            <p class="text-slate-400 text-[11px] mt-0.5">Scorri l'elenco delle opzioni e tocca <strong class="text-emerald-400">"Aggiungi alla schermata Home"</strong> (<i class="ph-bold ph-plus-square"></i>).</p>
-          </div>
-        </div>
-
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-3">
-          <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
-          <div>
-            <p class="font-bold text-white">Conferma e avvia</p>
-            <p class="text-slate-400 text-[11px] mt-0.5">Premi <strong>Aggiungi</strong> in alto a destra. Troverai l'icona <strong class="text-white">UTLAC 60</strong> tra le tue app sul telefono!</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-2">
-        <button onclick="closeModal('iosInstallModal')" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">
-          Ho capito, continua
-        </button>
-      </div>
-    </div>
+  <!-- Bottom Mobile Action Bar -->
+  <div class="fixed bottom-0 left-0 right-0 z-30 bg-[#020202]/90 backdrop-blur-md border-t border-[#04471C]/80 px-4 py-2 sm:hidden flex items-center justify-around">
+    <button onclick="jumpToCurrentWeek()" class="flex flex-col items-center gap-1 text-slate-400 active:text-[#16DB65]">
+      <i class="ph-bold ph-crosshair text-lg"></i>
+      <span class="text-[10px] font-medium">Oggi</span>
+    </button>
+    <button onclick="openAddWorkoutModal()" class="w-11 h-11 -mt-4 rounded-full bg-[#16DB65] text-[#020202] flex items-center justify-center font-black shadow-lg glow-malachite active:scale-95 transition">
+      <i class="ph-bold ph-plus text-xl"></i>
+    </button>
+    <button onclick="openModal('weightModal')" class="flex flex-col items-center gap-1 text-slate-400 active:text-[#16DB65]">
+      <i class="ph-bold ph-scales text-lg"></i>
+      <span class="text-[10px] font-medium">Pesa</span>
+    </button>
   </div>
 
-  <div id="logOutcomeModal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="glass-panel w-full max-w-md rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 border border-slate-700 relative shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="w-12 h-1.5 bg-slate-700 rounded-full mx-auto sm:hidden -mt-2 mb-3"></div>
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+  <!-- Modal: Log Outcome / Complete Workout -->
+  <div id="logOutcomeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="glass-panel w-full max-w-md rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 border border-[#04471C] relative shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="w-12 h-1.5 bg-[#04471C] rounded-full mx-auto sm:hidden -mt-2 mb-3"></div>
+      <div class="flex items-center justify-between pb-3 border-b border-[#04471C] mb-4">
         <div>
           <h3 class="text-base font-bold text-white flex items-center gap-2">
-            <i class="ph-bold ph-check-circle text-emerald-400"></i>
+            <i class="ph-bold ph-check-circle text-[#16DB65]"></i>
             Registra Fine Allenamento
           </h3>
-          <p id="logModalWorkoutTitle" class="text-xs text-emerald-400 font-semibold mt-0.5">Corsa Lenta Z2</p>
+          <p id="logModalWorkoutTitle" class="text-xs text-[#16DB65] font-semibold mt-0.5">Sessione</p>
         </div>
         <button onclick="closeModal('logOutcomeModal')" class="text-slate-400 hover:text-white transition">
           <i class="ph-bold ph-x text-lg"></i>
@@ -491,43 +358,43 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Km Effettivi</label>
-            <input type="number" step="0.1" id="actualKmInput" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white font-bold text-base focus:outline-none focus:border-emerald-500">
+            <input type="number" step="0.1" id="actualKmInput" required class="w-full bg-[#020202] border border-[#04471C] rounded-xl p-3 text-white font-bold text-base focus:outline-none focus:border-[#16DB65]">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">D+ Effettivo (m)</label>
-            <input type="number" step="10" id="actualElevInput" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white font-bold text-base focus:outline-none focus:border-emerald-500">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-slate-300 font-semibold mb-1">Durata (minuti)</label>
-            <input type="number" id="actualDurationInput" placeholder="es. 48" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-base focus:outline-none focus:border-emerald-500">
-          </div>
-          <div>
-            <label class="block text-slate-300 font-semibold mb-1">Fastidio Ginocchio (0-10)</label>
-            <input type="number" min="0" max="10" id="actualKneePainInput" value="0" required class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-base focus:outline-none focus:border-emerald-500">
+            <input type="number" step="10" id="actualElevInput" required class="w-full bg-[#020202] border border-[#04471C] rounded-xl p-3 text-white font-bold text-base focus:outline-none focus:border-[#16DB65]">
           </div>
         </div>
 
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Sensazioni & Note</label>
-          <textarea id="actualNotesInput" rows="2" placeholder="Ritmo, stabilità ginocchio in discesa, carico..." class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-emerald-500"></textarea>
+          <label class="block text-slate-300 font-semibold mb-1">Durata (minuti)</label>
+          <input type="number" id="actualDurationInput" placeholder="es. 48" required class="w-full bg-[#020202] border border-[#04471C] rounded-xl p-3 text-white text-base focus:outline-none focus:border-[#16DB65]">
         </div>
 
-        <div class="pt-2 flex items-center justify-end gap-2">
-          <button type="button" onclick="closeModal('logOutcomeModal')" class="px-4 py-2.5 rounded-xl bg-slate-800 active:bg-slate-700 text-slate-300 font-medium">Annulla</button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-500 active:bg-emerald-400 text-slate-950 font-bold glow-emerald">Salva e Completa</button>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Sensazioni & Note (opzionali)</label>
+          <textarea id="actualNotesInput" rows="2" placeholder="Pesi usati, ritmo, sensazioni..." class="w-full bg-[#020202] border border-[#04471C] rounded-xl p-3 text-white text-sm focus:outline-none focus:border-[#16DB65]"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-between gap-2">
+          <button type="button" id="uncompleteBtnInModal" onclick="handleUncompleteFromModal()" class="px-3 py-2.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-800/60 text-xs font-semibold">
+            <i class="ph-bold ph-arrow-u-up-left"></i> Segna Non Fatto
+          </button>
+          <div class="flex items-center gap-2 ml-auto">
+            <button type="button" onclick="closeModal('logOutcomeModal')" class="px-4 py-2.5 rounded-xl bg-[#0D2818] active:bg-[#04471C] text-slate-300 font-medium">Annulla</button>
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#16DB65] active:bg-[#058C42] text-[#020202] font-bold glow-malachite">Salva e Completa</button>
+          </div>
         </div>
       </form>
     </div>
   </div>
 
-  <div id="workoutEditorModal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-lg rounded-2xl p-6 border border-slate-700 relative shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+  <!-- Modal: Workout Editor -->
+  <div id="workoutEditorModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-lg rounded-2xl p-6 border border-[#04471C] relative shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-[#04471C] mb-4">
         <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <i class="ph-bold ph-pencil-simple-line text-emerald-400"></i>
+          <i class="ph-bold ph-pencil-simple-line text-[#16DB65]"></i>
           <span id="editorModalTitle">Modifica Allenamento</span>
         </h3>
         <button onclick="closeModal('workoutEditorModal')" class="text-slate-400 hover:text-white transition">
@@ -541,11 +408,11 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Giorno della settimana</label>
-            <input type="text" id="editorDayInput" required placeholder="es. Mercoledì 16 Set" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            <input type="text" id="editorDayInput" required placeholder="es. Mercoledì 16 Set" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Tipologia</label>
-            <select id="editorTypeInput" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            <select id="editorTypeInput" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
               <option value="trail">Trail Running (Bollettone / Montagna)</option>
               <option value="run">Corsa Rigenerante (Z2 - Fondo Lento)</option>
               <option value="gym">Home Gym (Forza A o B)</option>
@@ -556,47 +423,48 @@
 
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Titolo Sessione</label>
-          <input type="text" id="editorTitleInput" required placeholder="es. Trail Bollettone con Colleghi" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+          <input type="text" id="editorTitleInput" required placeholder="es. Trail Bollettone" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
         </div>
 
         <div class="grid grid-cols-3 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Target Km</label>
-            <input type="number" step="0.1" id="editorTargetKmInput" value="0" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            <input type="number" step="0.1" id="editorTargetKmInput" value="0" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Target D+ (m)</label>
-            <input type="number" step="10" id="editorTargetElevInput" value="0" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            <input type="number" step="10" id="editorTargetElevInput" value="0" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Stima Durata (min)</label>
-            <input type="number" id="editorTargetDurationInput" value="50" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
+            <input type="number" id="editorTargetDurationInput" value="50" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
           </div>
         </div>
 
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Dettagli & Indicazioni Tecniche</label>
-          <textarea id="editorDetailsInput" rows="3" placeholder="Esercizi previsti, focus discesa, serie/ripetizioni..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500"></textarea>
+          <label class="block text-slate-300 font-semibold mb-1">Note & Dettagli (opzionali)</label>
+          <textarea id="editorDetailsInput" rows="2" placeholder="Appunti o varianti..." class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]"></textarea>
         </div>
 
         <div class="pt-2 flex items-center justify-between">
           <button type="button" id="editorDeleteBtn" onclick="handleDeleteCurrentWorkout()" class="px-3.5 py-2 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 text-rose-300 border border-rose-800/60 text-xs font-semibold">
             <i class="ph-bold ph-trash"></i> Elimina
           </button>
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="closeModal('workoutEditorModal')" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium">Annulla</button>
-            <button type="submit" class="px-5 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold glow-emerald">Salva Allenamento</button>
+          <div class="flex items-center gap-2 ml-auto">
+            <button type="button" onclick="closeModal('workoutEditorModal')" class="px-4 py-2 rounded-lg bg-[#0D2818] hover:bg-[#04471C] text-slate-300 font-medium">Annulla</button>
+            <button type="submit" class="px-5 py-2 rounded-lg bg-[#16DB65] hover:bg-[#058C42] text-[#020202] font-bold glow-malachite">Salva Allenamento</button>
           </div>
         </div>
       </form>
     </div>
   </div>
 
-  <div id="weightModal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-sm rounded-2xl p-6 border border-slate-700 relative shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+  <!-- Modal: Record Weight -->
+  <div id="weightModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-panel w-full max-w-sm rounded-2xl p-6 border border-[#04471C] relative shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-[#04471C] mb-4">
         <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <i class="ph-bold ph-scales text-emerald-400"></i>
+          <i class="ph-bold ph-scales text-[#16DB65]"></i>
           Registra Peso a Digiuno
         </h3>
         <button onclick="closeModal('weightModal')" class="text-slate-400 hover:text-white transition">
@@ -607,40 +475,42 @@
       <form id="weightForm" onsubmit="handleWeightSubmit(event)" class="space-y-3.5 text-xs">
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Peso Rilevato (kg)</label>
-          <input type="number" step="0.1" id="newWeightInput" placeholder="es. 88.3" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-base font-bold focus:outline-none focus:border-emerald-500">
+          <input type="number" step="0.1" id="newWeightInput" placeholder="es. 88.3" required class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white text-base font-bold focus:outline-none focus:border-[#16DB65]">
         </div>
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Settimana Associata</label>
-          <select id="weightWeekSelect" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500">
-            <!-- Injected via JS -->
+          <select id="weightWeekSelect" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
+            <!-- Populated dynamically -->
           </select>
         </div>
         <div class="pt-2 flex items-center justify-end gap-2">
-          <button type="button" onclick="closeModal('weightModal')" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium">Annulla</button>
-          <button type="submit" class="px-5 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold glow-emerald">Salva Peso</button>
+          <button type="button" onclick="closeModal('weightModal')" class="px-4 py-2 rounded-lg bg-[#0D2818] hover:bg-[#04471C] text-slate-300 font-medium">Annulla</button>
+          <button type="submit" class="px-5 py-2 rounded-lg bg-[#16DB65] hover:bg-[#058C42] text-[#020202] font-bold glow-malachite">Salva Peso</button>
         </div>
       </form>
     </div>
   </div>
 
-  <div id="confirmDeleteModal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <!-- Modal: Delete Confirmation -->
+  <div id="confirmDeleteModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="glass-panel w-full max-w-sm rounded-2xl p-6 border border-rose-700/50 shadow-2xl text-center space-y-4">
       <div class="w-12 h-12 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto text-2xl">
         <i class="ph-bold ph-warning-circle"></i>
       </div>
       <div>
         <h4 class="text-base font-bold text-white">Eliminare questo allenamento?</h4>
-        <p class="text-xs text-slate-400 mt-1">L'operazione non può essere annullata per questa sessione.</p>
+        <p class="text-xs text-slate-400 mt-1">L'operazione rimuoverà la sessione dalla programmazione.</p>
       </div>
       <div class="flex items-center justify-center gap-3 pt-2">
-        <button onclick="closeModal('confirmDeleteModal')" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Annulla</button>
+        <button onclick="closeModal('confirmDeleteModal')" class="px-4 py-2 rounded-lg bg-[#0D2818] hover:bg-[#04471C] text-slate-300 text-xs font-semibold">Annulla</button>
         <button id="confirmDeleteActionBtn" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold">Elimina definitivamente</button>
       </div>
     </div>
   </div>
 
-  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white border border-emerald-500/50 shadow-2xl px-4 py-3 rounded-xl flex items-center gap-3">
-    <i class="ph-bold ph-check-circle text-emerald-400 text-lg"></i>
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-20 sm:bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-[#0D2818] text-white border border-[#16DB65]/60 shadow-2xl px-4 py-3 rounded-xl flex items-center gap-3">
+    <i class="ph-bold ph-check-circle text-[#16DB65] text-lg"></i>
     <span id="toast-message" class="text-xs font-semibold">Operazione completata</span>
   </div>
 
@@ -667,167 +537,155 @@
       const dayNames = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'];
 
       for (let w = 1; w <= 34; w++) {
-        // Calculate week start date
         const weekStartDate = new Date(START_DATE);
         weekStartDate.setDate(START_DATE.getDate() + (w - 1) * 7);
 
-        // Determine macro-phase
         let phase = 'Fase 1: Base & Cut';
-        let phaseColor = 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
+        let phaseColor = 'text-[#16DB65] bg-[#16DB65]/10 border-[#16DB65]/30';
         let longRunKm = 14 + Math.floor(w * 0.6);
         let longRunElev = 450 + (w * 25);
         let z2Km = 7.5 + (w > 14 ? 2 : 0);
 
         if (w >= 15 && w <= 23) {
           phase = 'Fase 2: Volume & D+';
-          phaseColor = 'text-sky-400 bg-sky-500/10 border-sky-500/30';
+          phaseColor = 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
           longRunKm = Math.min(26, 18 + (w - 14) * 1.0);
           longRunElev = Math.min(1300, 700 + (w - 14) * 65);
         } else if (w >= 24 && w <= 31) {
           phase = 'Fase 3: Specificità UTLAC';
-          phaseColor = 'text-amber-400 bg-amber-500/10 border-amber-500/30';
+          phaseColor = 'text-[#16DB65] bg-[#058C42]/20 border-[#058C42]/40';
           longRunKm = Math.min(36, 26 + (w - 23) * 1.3);
           longRunElev = Math.min(2100, 1300 + (w - 23) * 100);
         } else if (w >= 32) {
           phase = 'Fase 4: Tapering & Gara';
-          phaseColor = 'text-rose-400 bg-rose-500/10 border-rose-500/30';
+          phaseColor = 'text-emerald-300 bg-emerald-500/10 border-emerald-500/30';
           if (w === 32) { longRunKm = 20; longRunElev = 900; }
           else if (w === 33) { longRunKm = 12; longRunElev = 400; }
-          else { longRunKm = 60; longRunElev = 3800; } // Race week!
+          else { longRunKm = 60; longRunElev = 3800; }
         }
 
         const workouts = [
           {
             id: `w${w}_mon`,
             week: w,
-            day: `${dayNames[0]}`,
+            day: dayNames[0],
             dateOffset: 0,
-            title: 'Home Gym - Forza A (Catena Posteriore & Ginocchio Dx)',
+            title: 'Home Gym - Forza A (Catena Posteriore & Gambe)',
             type: 'gym',
             targetKm: 0,
             targetElev: 0,
             targetDuration: 50,
-            details: 'Spanish Squat isometrico 3x30", Stacco Rumeno 3x10, Bulgarian Split Squat 3x8/lato (discesa 3"), Step-down controllato 3x10, Leg Curl al cavo 3x12, Calf 4x15, Plank.',
+            details: '',
             completed: false,
             actualKm: 0,
             actualElev: 0,
             actualDuration: 0,
-            kneePain: 0,
             notes: ''
           },
           {
             id: `w${w}_tue`,
             week: w,
-            day: `${dayNames[1]}`,
+            day: dayNames[1],
             dateOffset: 1,
             title: 'Corsa Rigenerante (Z2 - Fondo Lento)',
             type: 'run',
             targetKm: Number(z2Km.toFixed(1)),
             targetElev: 40,
             targetDuration: 45,
-            details: 'Corsa lenta in pianura a passo conversazione. Cadenza 170+ passi/min per ridurre la forza di reazione sul ginocchio destro.',
+            details: '',
             completed: false,
             actualKm: 0,
             actualElev: 0,
             actualDuration: 0,
-            kneePain: 0,
             notes: ''
           },
           {
             id: `w${w}_wed`,
             week: w,
-            day: `${dayNames[2]}`,
+            day: dayNames[2],
             dateOffset: 2,
-            title: 'Trail Bollettone con Colleghi (Salita & Discesa Tecnica)',
+            title: 'Trail Bollettone con Colleghi',
             type: 'trail',
             targetKm: 8.0,
             targetElev: 480,
             targetDuration: 85,
-            details: 'Power hiking a falcata decisa in salita con mani sulle cosce o bastoncini. Discesa prudente con baricentro basso e appoggio sul mesopiede.',
+            details: '',
             completed: false,
             actualKm: 0,
             actualElev: 0,
             actualDuration: 0,
-            kneePain: 0,
             notes: ''
           },
           {
             id: `w${w}_thu`,
             week: w,
-            day: `${dayNames[3]}`,
+            day: dayNames[3],
             dateOffset: 3,
-            title: 'Home Gym - Forza B (Upper Body & Spinta Bastoncini)',
+            title: 'Home Gym - Forza B (Upper Body & Core)',
             type: 'gym',
             targetKm: 0,
             targetElev: 0,
             targetDuration: 45,
-            details: 'Panca piana 3x8, Rematore bilanciere 4x8-10, Trazioni / Lat machine al cavo 3x10, Face pull ai cavi 3x15, Core Pallof press 3x10/lato.',
+            details: '',
             completed: false,
             actualKm: 0,
             actualElev: 0,
             actualDuration: 0,
-            kneePain: 0,
             notes: ''
           },
           {
             id: `w${w}_fri`,
             week: w,
-            day: `${dayNames[4]}`,
+            day: dayNames[4],
             dateOffset: 4,
-            title: 'Riposo Totale & Idratazione Ufficio',
+            title: 'Riposo Totale & Idratazione',
             type: 'rest',
             targetKm: 0,
             targetElev: 0,
             targetDuration: 0,
-            details: 'Zero allenamento. Bevi 2.5L di acqua durante il turno 7:50-18:30. Recupero articolare e riposo mentale.',
+            details: '',
             completed: false,
             actualKm: 0,
             actualElev: 0,
             actualDuration: 0,
-            kneePain: 0,
             notes: ''
           },
           {
             id: `w${w}_sat`,
             week: w,
-            day: `${dayNames[5]}`,
+            day: dayNames[5],
             dateOffset: 5,
-            title: w === 34 ? '🏁 GARA: UTLAC 60 (8 Maggio 2027)' : `Lungo Trail (${Math.round(longRunKm)} km - Costruzione Volume)`,
+            title: w === 34 ? '🏁 GARA: UTLAC 60 (8 Maggio 2027)' : `Lungo Trail (${Math.round(longRunKm)} km)`,
             type: 'trail',
             targetKm: Number(longRunKm.toFixed(1)),
             targetElev: Math.round(longRunElev),
             targetDuration: Math.round(longRunKm * 7.5),
-            details: w === 34
-              ? 'LAGO DI COMO: 60 km · 3.800m D+. Tutto l\'allenamento di questi mesi è per questo giorno. Gestisci il ritmo, mangia ogni 40 min, divertiti!'
-              : 'Sentieri collinari/montani. Cammina tutte le salite ripide, corri i falsopiani. Testa zaino, sacca idrica ed elettroliti.',
+            details: '',
             completed: false,
             actualKm: 0,
             actualElev: 0,
             actualDuration: 0,
-            kneePain: 0,
             notes: ''
           },
           {
             id: `w${w}_sun`,
             week: w,
-            day: `${dayNames[6]}`,
+            day: dayNames[6],
             dateOffset: 6,
-            title: 'Riposo Attivo, Foam Roller & Pesata Mattutina',
+            title: 'Riposo Attivo & Pesata Mattutina',
             type: 'rest',
             targetKm: 0,
             targetElev: 0,
             targetDuration: 25,
-            details: 'Pesata la mattina a digiuno. 20 min foam roller (bandelletta ileotibiale, polpacci, quadricipiti). Pianificazione pasti mensa per la settimana entrante.',
+            details: '',
             completed: false,
             actualKm: 0,
             actualElev: 0,
             actualDuration: 0,
-            kneePain: 0,
             notes: ''
           }
         ];
 
-        // Format dates string
         const weekEndDate = new Date(weekStartDate);
         weekEndDate.setDate(weekStartDate.getDate() + 6);
         const formatShort = (d) => `${d.getDate()} ${d.toLocaleString('it', { month: 'short' })}`;
@@ -851,18 +709,38 @@
     let appState = {
       activeMonthId: '2026-09',
       activeWeekNumber: 1,
-      currentKneePain: 0,
       weeks: []
     };
 
     let weightChartInstance = null;
 
-    // Load or initialize state
+    function saveState() {
+      try {
+        localStorage.setItem('utlac60_state_v1', JSON.stringify(appState));
+      } catch (e) {
+        console.error('Failed to save state:', e);
+      }
+    }
+
     function initDatabase() {
       const saved = localStorage.getItem('utlac60_state_v1');
       if (saved) {
         try {
           appState = JSON.parse(saved);
+          if (appState.weeks && Array.isArray(appState.weeks)) {
+            appState.weeks.forEach(w => {
+              w.workouts.forEach(wo => {
+                if (wo.title) {
+                  wo.title = wo.title.replace(' & Ginocchio Dx', '').replace(' (Salita & Discesa Tecnica)', '').replace(' - Costruzione Volume', '');
+                }
+                delete wo.kneePain;
+              });
+            });
+            delete appState.currentKneePain;
+            saveState();
+          } else {
+            appState.weeks = generateInitialPlan();
+          }
         } catch (e) {
           appState.weeks = generateInitialPlan();
         }
@@ -870,123 +748,137 @@
         appState.weeks = generateInitialPlan();
       }
 
-      // Ensure proper structure
       if (!appState.weeks || appState.weeks.length === 0) {
         appState.weeks = generateInitialPlan();
       }
     }
 
-    function saveState() {
-      try {
-        localStorage.setItem('utlac60_state_v1', JSON.stringify(appState));
-      } catch (e) {
-        console.warn('LocalStorage save error', e);
-      }
-    }
-
     function renderNavigation() {
-      // 1. Render Months Tabs
       const monthContainer = document.getElementById('month-tabs-container');
+      if (!monthContainer) return;
       monthContainer.innerHTML = '';
 
       MONTHS.forEach(m => {
-        const isCurrent = m.id === appState.activeMonthId;
         const btn = document.createElement('button');
-        btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap ${
-          isCurrent
-            ? 'bg-emerald-500 text-slate-950 shadow-md font-extrabold'
-            : 'bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
+        const isActive = m.id === appState.activeMonthId;
+        btn.className = `px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+          isActive
+            ? 'bg-[#16DB65] text-[#020202] font-bold glow-malachite'
+            : 'bg-[#0D2818] text-slate-300 hover:bg-[#04471C] border border-[#04471C]'
         }`;
-        btn.innerHTML = `<i class="ph-bold ${isCurrent ? 'ph-calendar-check' : 'ph-calendar-blank'}"></i> ${m.label}`;
-        btn.onclick = () => selectMonth(m.id);
+        btn.textContent = m.label;
+        btn.onclick = () => {
+          appState.activeMonthId = m.id;
+          appState.activeWeekNumber = m.weeks[0];
+          saveState();
+          renderNavigation();
+          renderActiveWeek();
+          updateMetrics();
+        };
         monthContainer.appendChild(btn);
       });
 
-      // 2. Render Weeks for active month
       renderWeeksSubBar();
-    }
-
-    function selectMonth(monthId) {
-      appState.activeMonthId = monthId;
-      const monthObj = MONTHS.find(m => m.id === monthId);
-      if (monthObj && monthObj.weeks.length > 0) {
-        // If current active week is not in this month, switch to first week of month
-        if (!monthObj.weeks.includes(appState.activeWeekNumber)) {
-          appState.activeWeekNumber = monthObj.weeks[0];
-        }
-      }
-      renderNavigation();
-      renderActiveWeek();
-      updateMetrics();
-      saveState();
-    }
-
-    function selectWeek(weekNum) {
-      appState.activeWeekNumber = weekNum;
-      // Ensure activeMonth corresponds to this week
-      const matchingMonth = MONTHS.find(m => m.weeks.includes(weekNum));
-      if (matchingMonth) {
-        appState.activeMonthId = matchingMonth.id;
-      }
-      renderNavigation();
-      renderActiveWeek();
-      updateMetrics();
-      saveState();
-    }
-
-    function jumpToCurrentWeek() {
-      selectWeek(1); // Week 1 (14 Settembre 2026)
-      showToast('Visualizzazione Settimana 1 (Oggi)');
     }
 
     function renderWeeksSubBar() {
       const weekContainer = document.getElementById('week-tabs-container');
+      if (!weekContainer) return;
       weekContainer.innerHTML = '';
 
-      const currentMonth = MONTHS.find(m => m.id === appState.activeMonthId);
-      if (!currentMonth) return;
-
-      currentMonth.weeks.forEach(wNum => {
-        const weekData = appState.weeks.find(w => w.weekNumber === wNum);
-        if (!weekData) return;
-
-        const isSelected = wNum === appState.activeWeekNumber;
-        const completedCount = weekData.workouts.filter(w => w.completed).length;
-        const totalCount = weekData.workouts.length;
-        const isDone = completedCount === totalCount && totalCount > 0;
-
-        const btn = document.createElement('button');
-        btn.className = `px-3 py-2 rounded-xl text-xs transition border flex items-center gap-2 whitespace-nowrap ${
-          isSelected
-            ? 'bg-slate-800 border-emerald-500 text-white font-bold ring-1 ring-emerald-500/40'
-            : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800/80'
-        }`;
-
-        btn.innerHTML = `
-          <div class="flex items-center gap-1.5">
-            <span class="${isSelected ? 'text-emerald-400' : 'text-slate-400'} font-extrabold">W${wNum}</span>
-            <span class="text-[10px] text-slate-500">(${weekData.dateRangeString})</span>
-          </div>
-          <span class="text-[10px] px-1.5 py-0.5 rounded-full ${
-            isDone ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-400'
-          }">
-            ${completedCount}/${totalCount}
-          </span>
-        `;
-        btn.onclick = () => selectWeek(wNum);
-        weekContainer.appendChild(btn);
-      });
-
-      // Update Phase Badge in Header
-      const activeWeekData = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
+      const currentMonth = MONTHS.find(m => m.id === appState.activeMonthId) || MONTHS[0];
       const phaseBadgeContainer = document.getElementById('phase-badge-container');
-      if (activeWeekData) {
+      
+      const activeWeekData = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
+      if (phaseBadgeContainer && activeWeekData) {
         phaseBadgeContainer.innerHTML = `
-          <span class="text-[11px] font-bold px-3 py-1 rounded-full border ${activeWeekData.phaseColor}">
+          <span class="text-[11px] font-bold px-2.5 py-1 rounded-lg border ${activeWeekData.phaseColor}">
             ${activeWeekData.phase}
           </span>
+          <span class="text-[11px] text-slate-400">Target peso: <strong class="text-white">${activeWeekData.targetWeight} kg</strong></span>
         `;
       }
+
+      currentMonth.weeks.forEach(wNum => {
+        const wData = appState.weeks.find(w => w.weekNumber === wNum);
+        if (!wData) return;
+        const isWeekActive = wNum === appState.activeWeekNumber;
+        const completedCount = wData.workouts.filter(wo => wo.completed).length;
+        const totalCount = wData.workouts.length;
+        const isAllDone = totalCount > 0 && completedCount === totalCount;
+
+        const btn = document.createElement('button');
+        btn.className = `px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all ${
+          isWeekActive
+            ? 'bg-[#04471C] text-[#16DB65] border border-[#16DB65]/60 font-bold'
+            : 'bg-[#0D2818]/60 text-slate-300 hover:bg-[#0D2818] border border-[#04471C]/80'
+        }`;
+        btn.innerHTML = `
+          <span>W${wNum}</span>
+          <span class="text-[10px] ${isAllDone ? 'text-[#16DB65]' : 'text-slate-400'}">(${completedCount}/${totalCount})</span>
+        `;
+        btn.onclick = () => {
+          appState.activeWeekNumber = wNum;
+          saveState();
+          renderNavigation();
+          renderActiveWeek();
+          updateMetrics();
+        };
+        weekContainer.appendChild(btn);
+      });
+    }
+
+    function jumpToCurrentWeek() {
+      appState.activeMonthId = '2026-09';
+      appState.activeWeekNumber = 1;
+      saveState();
+      renderNavigation();
+      renderActiveWeek();
+      updateMetrics();
+      showToast('Tornato alla Settimana 1 (Oggi)');
+    }
+
+    function toggleWorkoutCheck(workoutId) {
+      const week = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
+      if (!week) return;
+      const workout = week.workouts.find(w => w.id === workoutId);
+      if (!workout) return;
+
+      if (workout.completed) {
+        workout.completed = false;
+        workout.actualKm = 0;
+        workout.actualElev = 0;
+        workout.actualDuration = 0;
+        workout.notes = '';
+        saveState();
+        renderActiveWeek();
+        renderWeeksSubBar();
+        updateMetrics();
+        showToast('Spunta rimossa: allenamento contrassegnato come da fare.');
+      } else {
+        promptCompleteWorkout(workoutId);
+      }
+    }
+
+    function handleUncompleteFromModal() {
+      const workoutId = document.getElementById('logWorkoutId').value;
+      const week = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
+      if (week) {
+        const workout = week.workouts.find(w => w.id === workoutId);
+        if (workout) {
+          workout.completed = false;
+          workout.actualKm = 0;
+          workout.actualElev = 0;
+          workout.actualDuration = 0;
+          workout.notes = '';
+        }
+      }
+      closeModal('logOutcomeModal');
+      saveState();
+      renderActiveWeek();
+      renderWeeksSubBar();
+      updateMetrics();
+      showToast('Allenamento contrassegnato come da fare.');
     }
 
     function renderActiveWeek() {
@@ -1004,29 +896,28 @@
         const card = document.createElement('div');
         card.className = `p-4 rounded-2xl border transition-all ${
           workout.completed
-            ? 'bg-emerald-950/20 border-emerald-500/40'
-            : 'bg-slate-900/60 hover:bg-slate-900 border-slate-800/90'
+            ? 'bg-[#0D2818]/90 border-[#16DB65]/60 shadow-[0_0_15px_-4px_rgba(22,219,101,0.2)]'
+            : 'bg-[#0D2818]/40 hover:bg-[#0D2818]/70 border-[#04471C]'
         }`;
 
-        // Icon and styling based on workout type
-        let typeBadge = 'bg-slate-800 text-slate-300 border-slate-700';
+        let typeBadge = 'bg-[#04471C] text-slate-300 border-[#058C42]/40';
         let typeIcon = 'ph-barbell';
         let typeLabel = 'Sessione';
 
         if (workout.type === 'trail') {
-          typeBadge = 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+          typeBadge = 'bg-[#058C42]/20 text-[#16DB65] border-[#16DB65]/40';
           typeIcon = 'ph-mountains';
           typeLabel = 'Trail';
         } else if (workout.type === 'run') {
-          typeBadge = 'bg-sky-500/15 text-sky-400 border-sky-500/30';
+          typeBadge = 'bg-[#04471C]/70 text-emerald-300 border-[#058C42]/40';
           typeIcon = 'ph-sneaker-move';
           typeLabel = 'Corsa Z2';
         } else if (workout.type === 'gym') {
-          typeBadge = 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+          typeBadge = 'bg-[#0D2818] text-[#16DB65] border-[#04471C]';
           typeIcon = 'ph-barbell';
           typeLabel = 'Home Gym';
         } else {
-          typeBadge = 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30';
+          typeBadge = 'bg-[#020202] text-slate-400 border-[#04471C]';
           typeIcon = 'ph-bed';
           typeLabel = 'Riposo';
         }
@@ -1040,21 +931,21 @@
             <div class="flex items-start gap-3 flex-grow min-w-0">
               
               <!-- Checkmark / Complete Button -->
-              <button onclick="promptCompleteWorkout('${workout.id}')" class="mt-0.5 text-2xl flex-shrink-0 transition-transform active:scale-90" title="${workout.completed ? 'Clicca per modificare esito o deselezionare' : 'Clicca appena completato'}">
-                <i class="${workout.completed ? 'ph-fill ph-check-circle text-emerald-400' : 'ph ph-circle text-slate-500 hover:text-emerald-400'}"></i>
+              <button onclick="toggleWorkoutCheck('${workout.id}')" class="mt-0.5 text-2xl flex-shrink-0 transition-transform active:scale-85" title="${workout.completed ? 'Clicca per disattivare la spunta' : 'Clicca per completare'}">
+                <i class="${workout.completed ? 'ph-fill ph-check-circle text-[#16DB65]' : 'ph ph-circle text-slate-500 hover:text-[#16DB65]'}"></i>
               </button>
 
               <div class="flex-grow min-w-0">
                 <div class="flex flex-wrap items-center gap-2 mb-1">
-                  <span class="text-xs font-bold ${workout.completed ? 'text-emerald-400' : 'text-slate-400'}">
+                  <span class="text-xs font-bold ${workout.completed ? 'text-[#16DB65]' : 'text-slate-400'}">
                     ${workout.day}
                   </span>
                   <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${typeBadge} flex items-center gap-1">
                     <i class="ph-bold ${typeIcon}"></i> ${typeLabel}
                   </span>
                   ${workout.completed ? `
-                    <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                      ✓ Completato
+                    <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-[#16DB65]/20 text-[#16DB65] border border-[#16DB65]/40 flex items-center gap-1">
+                      <i class="ph-bold ph-check"></i> Fatto
                     </span>
                   ` : ''}
                 </div>
@@ -1063,27 +954,26 @@
                   ${workout.title}
                 </h4>
 
-                <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
-                  ${workout.details}
-                </p>
+                ${workout.details ? `
+                  <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                    ${workout.details}
+                  </p>
+                ` : ''}
 
                 <!-- Stats Comparison Badge -->
-                <div class="mt-2.5 flex flex-wrap items-center gap-2 text-[11px]">
-                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono">
+                <div class="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
+                  <span class="px-2 py-0.5 rounded bg-[#020202] border border-[#04471C] text-slate-300 font-mono">
                     Target: ${statsTargetString}
                   </span>
                   ${workout.completed && (workout.actualKm > 0 || workout.actualDuration > 0) ? `
-                    <span class="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-mono font-semibold">
+                    <span class="px-2 py-0.5 rounded bg-[#04471C]/80 border border-[#16DB65]/40 text-[#16DB65] font-mono font-semibold">
                       Effettivo: ${workout.actualKm} km · +${workout.actualElev}m · ${workout.actualDuration}m
-                    </span>
-                    <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300">
-                      Ginocchio: <strong class="${workout.kneePain > 3 ? 'text-rose-400' : 'text-emerald-400'}">${workout.kneePain}/10</strong>
                     </span>
                   ` : ''}
                 </div>
 
                 ${workout.completed && workout.notes ? `
-                  <div class="mt-2 p-2 rounded-lg bg-slate-950/50 border border-slate-800 text-[11px] text-slate-300 italic">
+                  <div class="mt-2 p-2 rounded-lg bg-[#020202] border border-[#04471C] text-[11px] text-slate-300 italic">
                     "${workout.notes}"
                   </div>
                 ` : ''}
@@ -1091,12 +981,12 @@
               </div>
             </div>
 
-            <!-- Action Buttons (Edit / Delete / Quick Log) -->
+            <!-- Action Buttons -->
             <div class="flex items-center gap-1 flex-shrink-0">
-              <button onclick="promptCompleteWorkout('${workout.id}')" class="p-1.5 rounded-lg bg-slate-800 hover:bg-emerald-500 hover:text-slate-950 text-slate-300 text-xs transition" title="Registra dati completamento">
+              <button onclick="promptCompleteWorkout('${workout.id}')" class="p-1.5 rounded-lg bg-[#0D2818] hover:bg-[#16DB65] hover:text-[#020202] border border-[#04471C] text-slate-300 text-xs transition" title="Registra dati consuntivi">
                 <i class="ph-bold ph-pencil-simple text-sm"></i>
               </button>
-              <button onclick="openEditWorkoutModal('${workout.id}')" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs transition" title="Modifica scheda allenamento">
+              <button onclick="openEditWorkoutModal('${workout.id}')" class="p-1.5 rounded-lg bg-[#0D2818] hover:bg-[#04471C] border border-[#04471C] text-slate-400 hover:text-white text-xs transition" title="Modifica scheda allenamento">
                 <i class="ph-bold ph-gear text-sm"></i>
               </button>
             </div>
@@ -1108,15 +998,12 @@
     }
 
     function updateMetrics() {
-      // Find current active week
       const currentWeekData = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber) || appState.weeks[0];
 
-      // Volume calculation for active week
       let totalKm = 0;
       let targetKm = 0;
       let totalElev = 0;
       let targetElev = 0;
-      let maxKneePain = 0;
 
       currentWeekData.workouts.forEach(w => {
         targetKm += w.targetKm || 0;
@@ -1124,7 +1011,6 @@
         if (w.completed) {
           totalKm += (w.actualKm !== undefined && w.actualKm > 0) ? w.actualKm : w.targetKm;
           totalElev += (w.actualElev !== undefined && w.actualElev > 0) ? w.actualElev : w.targetElev;
-          if (w.kneePain > maxKneePain) maxKneePain = w.kneePain;
         }
       });
 
@@ -1143,21 +1029,6 @@
       document.getElementById('kpi-elev-percent').textContent = `${elevPercent}%`;
       document.getElementById('kpi-elev-bar').style.width = `${elevPercent}%`;
 
-      // Knee KPI
-      document.getElementById('kpi-knee-pain').textContent = maxKneePain;
-      const kneeStatusElem = document.getElementById('kpi-knee-status');
-      if (maxKneePain === 0) {
-        kneeStatusElem.textContent = 'Ottimale';
-        kneeStatusElem.className = 'text-xl font-bold text-emerald-400';
-      } else if (maxKneePain <= 3) {
-        kneeStatusElem.textContent = 'Lieve Tensione';
-        kneeStatusElem.className = 'text-xl font-bold text-amber-400';
-      } else {
-        kneeStatusElem.textContent = 'Attenzione!';
-        kneeStatusElem.className = 'text-xl font-bold text-rose-400';
-      }
-
-      // Latest weight
       let latestWeight = START_WEIGHT;
       appState.weeks.forEach(w => {
         if (w.actualWeight !== null && !isNaN(w.actualWeight)) {
@@ -1174,7 +1045,6 @@
       document.getElementById('kpi-weight-percent').textContent = `${weightPercent}%`;
       document.getElementById('kpi-weight-bar').style.width = `${weightPercent}%`;
 
-      // Countdown
       const today = new Date('2026-09-14T12:00:00');
       const diffDays = Math.ceil((RACE_DATE - today) / (1000 * 60 * 60 * 24));
       document.getElementById('header-countdown').textContent = `${diffDays} gg (34 sett)`;
@@ -1187,10 +1057,14 @@
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-      
-      const labels = ['W1', 'W4', 'W8', 'W12', 'W16 (Target)', 'W20', 'W26', 'W34 (Gara)'];
-      const targetCurve = [89.0, 86.2, 83.4, 80.6, 78.0, 78.0, 78.0, 78.0];
-      const actualCurve = [89.0, null, null, null, null, null, null, null];
+
+      const labels = appState.weeks.map(w => `W${w.weekNumber}`);
+      const targetData = appState.weeks.map(w => w.targetWeight);
+      const actualData = appState.weeks.map(w => w.actualWeight !== null ? w.actualWeight : null);
+
+      if (weightChartInstance) {
+        weightChartInstance.destroy();
+      }
 
       weightChartInstance = new Chart(ctx, {
         type: 'line',
@@ -1198,25 +1072,28 @@
           labels: labels,
           datasets: [
             {
-              label: 'Target Cut (78 kg)',
-              data: targetCurve,
-              borderColor: '#64748b',
+              label: 'Target (kg)',
+              data: targetData,
+              borderColor: '#058C42',
+              borderWidth: 1.5,
               borderDash: [4, 4],
-              borderWidth: 2,
+              pointRadius: 0,
               fill: false,
-              pointRadius: 2,
               tension: 0.1
             },
             {
-              label: 'Peso Reale (kg)',
-              data: actualCurve,
-              borderColor: '#10b981',
-              backgroundColor: 'rgba(16, 185, 129, 0.15)',
-              borderWidth: 3,
-              fill: true,
-              pointRadius: 5,
-              pointBackgroundColor: '#10b981',
-              tension: 0.3
+              label: 'Rilevato (kg)',
+              data: actualData,
+              borderColor: '#16DB65',
+              backgroundColor: 'rgba(22, 219, 101, 0.15)',
+              borderWidth: 2.5,
+              pointBackgroundColor: '#16DB65',
+              pointBorderColor: '#020202',
+              pointRadius: 3.5,
+              pointHoverRadius: 6,
+              fill: false,
+              spanGaps: true,
+              tension: 0.2
             }
           ]
         },
@@ -1225,22 +1102,37 @@
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              labels: { color: '#94a3b8', font: { size: 10, family: 'Inter' } }
+              display: true,
+              position: 'top',
+              labels: {
+                color: '#94a3b8',
+                font: { size: 10, family: 'Inter' },
+                boxWidth: 12
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y} kg`
+              }
             }
           },
           scales: {
             x: {
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#64748b', font: { size: 9 } }
-            },
-            y: {
-              min: 75,
-              max: 91,
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              grid: { color: 'rgba(4, 71, 28, 0.25)' },
               ticks: {
                 color: '#64748b',
                 font: { size: 9 },
-                callback: function(val) { return val + 'kg'; }
+                maxTicksLimit: 9
+              }
+            },
+            y: {
+              min: 75,
+              max: 92,
+              grid: { color: 'rgba(4, 71, 28, 0.25)' },
+              ticks: {
+                color: '#64748b',
+                font: { size: 9 },
+                stepSize: 2
               }
             }
           }
@@ -1249,15 +1141,11 @@
     }
 
     function updateWeightChart() {
-      if (!weightChartInstance) return;
-
-      const milestones = [1, 4, 8, 12, 16, 20, 26, 34];
-      const actualValues = milestones.map(wNum => {
-        const week = appState.weeks.find(w => w.weekNumber === wNum);
-        return week && week.actualWeight !== null ? week.actualWeight : null;
-      });
-
-      weightChartInstance.data.datasets[1].data = actualValues;
+      if (!weightChartInstance) {
+        initWeightChart();
+        return;
+      }
+      weightChartInstance.data.datasets[1].data = appState.weeks.map(w => w.actualWeight !== null ? w.actualWeight : null);
       weightChartInstance.update();
     }
 
@@ -1270,12 +1158,17 @@
       document.getElementById('logWorkoutId').value = workout.id;
       document.getElementById('logModalWorkoutTitle').textContent = `${workout.day}: ${workout.title}`;
       
-      // Default to target or previously logged actuals
       document.getElementById('actualKmInput').value = workout.completed ? workout.actualKm : workout.targetKm;
       document.getElementById('actualElevInput').value = workout.completed ? workout.actualElev : workout.targetElev;
       document.getElementById('actualDurationInput').value = workout.completed ? workout.actualDuration : (workout.targetDuration || 45);
-      document.getElementById('actualKneePainInput').value = workout.kneePain || 0;
       document.getElementById('actualNotesInput').value = workout.notes || '';
+
+      const uncompleteBtn = document.getElementById('uncompleteBtnInModal');
+      if (workout.completed) {
+        uncompleteBtn.classList.remove('hidden');
+      } else {
+        uncompleteBtn.classList.add('hidden');
+      }
 
       openModal('logOutcomeModal');
     }
@@ -1286,7 +1179,6 @@
       const actualKm = parseFloat(document.getElementById('actualKmInput').value) || 0;
       const actualElev = parseFloat(document.getElementById('actualElevInput').value) || 0;
       const actualDuration = parseInt(document.getElementById('actualDurationInput').value) || 0;
-      const kneePain = parseInt(document.getElementById('actualKneePainInput').value) || 0;
       const notes = document.getElementById('actualNotesInput').value;
 
       const week = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
@@ -1297,7 +1189,6 @@
           workout.actualKm = actualKm;
           workout.actualElev = actualElev;
           workout.actualDuration = actualDuration;
-          workout.kneePain = kneePain;
           workout.notes = notes;
         }
       }
@@ -1307,14 +1198,14 @@
       renderActiveWeek();
       renderWeeksSubBar();
       updateMetrics();
-      showToast('Ottimo lavoro! Sessione registrata e completata.');
+      showToast('Sessione registrata con successo!');
     }
 
     let currentEditingWorkoutId = null;
 
     function openAddWorkoutModal() {
       currentEditingWorkoutId = null;
-      document.getElementById('editorModalTitle').textContent = `Nuovo Allenamento (Settimana ${appState.activeWeekNumber})`;
+      document.getElementById('editorModalTitle').textContent = `Nuova Sessione (Settimana ${appState.activeWeekNumber})`;
       document.getElementById('editorWorkoutId').value = '';
       document.getElementById('editorDayInput').value = 'Extra';
       document.getElementById('editorTypeInput').value = 'run';
@@ -1363,7 +1254,6 @@
       const details = document.getElementById('editorDetailsInput').value;
 
       if (currentEditingWorkoutId) {
-        // Edit existing
         const workout = week.workouts.find(w => w.id === currentEditingWorkoutId);
         if (workout) {
           workout.day = day;
@@ -1376,7 +1266,6 @@
         }
         showToast('Allenamento aggiornato!');
       } else {
-        // Create new
         const newWorkout = {
           id: `custom_${Date.now()}`,
           week: week.weekNumber,
@@ -1391,11 +1280,10 @@
           actualKm: 0,
           actualElev: 0,
           actualDuration: 0,
-          kneePain: 0,
           notes: ''
         };
         week.workouts.push(newWorkout);
-        showToast('Nuovo allenamento aggiunto alla settimana!');
+        showToast('Nuovo allenamento aggiunto!');
       }
 
       closeModal('workoutEditorModal');
@@ -1464,11 +1352,11 @@
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `UTLAC60_PianoAllenamenti_${new Date().toISOString().split('T')[0]}.json`);
+      downloadAnchor.setAttribute("download", `UTLAC60_Piano_${new Date().toISOString().split('T')[0]}.json`);
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
-      showToast('Dati esportati con successo!');
+      showToast('Dati esportati!');
     }
 
     function importData(event) {
@@ -1516,36 +1404,12 @@
       }, 3000);
     }
 
-    function tryVibrate() {
-      if (typeof navigator !== 'undefined' && navigator.vibrate) {
-        try { navigator.vibrate(15); } catch (e) {}
-      }
-    }
-
-    function checkIosStandalone() {
-      const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
-      const banner = document.getElementById('iosInstallBanner');
-      if (isStandalone && banner) {
-        banner.style.display = 'none';
-      }
-      if (localStorage.getItem('ios_banner_dismissed') === 'true' && banner) {
-        banner.style.display = 'none';
-      }
-    }
-
-    function dismissInstallBanner() {
-      const banner = document.getElementById('iosInstallBanner');
-      if (banner) banner.style.display = 'none';
-      localStorage.setItem('ios_banner_dismissed', 'true');
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       initDatabase();
       initWeightChart();
       renderNavigation();
       renderActiveWeek();
       updateMetrics();
-      checkIosStandalone();
     });
   </script>
 </body>
