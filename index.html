@@ -131,7 +131,7 @@
 
         <button onclick="jumpToCurrentWeek()" class="glass-panel hover:bg-[#0D2818] active:scale-95 px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-[#16DB65] font-semibold border border-[#04471C] transition flex items-center gap-1">
           <i class="ph-bold ph-crosshair text-[#16DB65]"></i>
-          <span class="hidden sm:inline">Oggi /</span><span>W1</span>
+          <span class="hidden sm:inline">Oggi / </span><span>W<span id="header-current-w-num">1</span></span>
         </button>
 
         <button onclick="openAddWorkoutModal()" class="bg-[#16DB65] hover:bg-[#058C42] active:scale-95 text-[#020202] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition glow-malachite">
@@ -160,25 +160,25 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
 
-    <!-- KPI Row: 3 Clean Minimal Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
+    <!-- KPI Row: 4 Clean Minimal Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
       
       <!-- Weight KPI -->
-      <div class="glass-panel glass-card-hover rounded-2xl p-4 relative overflow-hidden">
+      <div class="glass-panel glass-card-hover rounded-2xl p-3.5 sm:p-4 relative overflow-hidden">
         <div class="flex items-center justify-between text-slate-400 mb-1.5">
-          <span class="text-[11px] uppercase font-bold tracking-wider">Peso Attuale</span>
-          <button onclick="openModal('weightModal')" class="text-xs text-[#16DB65] hover:underline flex items-center gap-1 font-semibold">
-            <i class="ph-bold ph-plus"></i> Aggiorna
+          <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider">Peso Attuale</span>
+          <button onclick="openModal('weightModal')" class="text-xs text-[#16DB65] hover:underline flex items-center gap-0.5 font-semibold">
+            <i class="ph-bold ph-plus"></i> <span class="hidden sm:inline">Aggiorna</span>
           </button>
         </div>
-        <div class="flex items-baseline gap-2">
-          <span id="kpi-current-weight" class="text-3xl font-extrabold text-white">89.0</span>
+        <div class="flex items-baseline gap-1.5 sm:gap-2">
+          <span id="kpi-current-weight" class="text-2xl sm:text-3xl font-extrabold text-white">89.0</span>
           <span class="text-xs text-slate-400">kg</span>
-          <span id="kpi-weight-diff" class="text-xs font-semibold text-[#16DB65] ml-auto">-0.0 kg</span>
+          <span id="kpi-weight-diff" class="text-[11px] sm:text-xs font-semibold text-[#16DB65] ml-auto">-0.0 kg</span>
         </div>
-        <div class="mt-2.5">
-          <div class="flex justify-between text-[11px] text-slate-400 mb-1">
-            <span>Target: 78.0 kg</span>
+        <div class="mt-2 sm:mt-2.5">
+          <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mb-1">
+            <span>Target: 78 kg</span>
             <span id="kpi-weight-percent" class="text-[#16DB65] font-bold">0%</span>
           </div>
           <div class="w-full bg-[#020202] rounded-full h-1.5 overflow-hidden border border-[#04471C]">
@@ -188,18 +188,18 @@
       </div>
 
       <!-- Week Volume KPI -->
-      <div class="glass-panel glass-card-hover rounded-2xl p-4">
+      <div class="glass-panel glass-card-hover rounded-2xl p-3.5 sm:p-4">
         <div class="flex items-center justify-between text-slate-400 mb-1.5">
-          <span class="text-[11px] uppercase font-bold tracking-wider" id="kpi-volume-label">Km Settimana</span>
-          <i class="ph ph-sneaker-move text-lg text-[#16DB65]"></i>
+          <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider" id="kpi-volume-label">Km Settimana</span>
+          <i class="ph ph-sneaker-move text-base sm:text-lg text-[#16DB65]"></i>
         </div>
-        <div class="flex items-baseline gap-1.5">
-          <span id="kpi-week-km" class="text-3xl font-extrabold text-white">0.0</span>
-          <span id="kpi-week-km-target" class="text-xs text-slate-400">/ 28 km</span>
+        <div class="flex items-baseline gap-1">
+          <span id="kpi-week-km" class="text-2xl sm:text-3xl font-extrabold text-white">0.0</span>
+          <span id="kpi-week-km-target" class="text-[11px] sm:text-xs text-slate-400 truncate">/ 28 km</span>
         </div>
-        <div class="mt-2.5">
-          <div class="flex justify-between text-[11px] text-slate-400 mb-1">
-            <span>Avanzamento Volume</span>
+        <div class="mt-2 sm:mt-2.5">
+          <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mb-1">
+            <span>Volume</span>
             <span id="kpi-km-percent" class="text-[#16DB65] font-bold">0%</span>
           </div>
           <div class="w-full bg-[#020202] rounded-full h-1.5 overflow-hidden border border-[#04471C]">
@@ -209,23 +209,44 @@
       </div>
 
       <!-- Week Elevation KPI (D+) -->
-      <div class="glass-panel glass-card-hover rounded-2xl p-4">
+      <div class="glass-panel glass-card-hover rounded-2xl p-3.5 sm:p-4">
         <div class="flex items-center justify-between text-slate-400 mb-1.5">
-          <span class="text-[11px] uppercase font-bold tracking-wider">Dislivello D+</span>
-          <i class="ph ph-trend-up text-lg text-emerald-400"></i>
+          <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider">Dislivello D+</span>
+          <i class="ph ph-trend-up text-base sm:text-lg text-emerald-400"></i>
         </div>
-        <div class="flex items-baseline gap-1.5">
-          <span id="kpi-week-elev" class="text-3xl font-extrabold text-white">0</span>
-          <span id="kpi-week-elev-target" class="text-xs text-slate-400">/ 850m D+</span>
+        <div class="flex items-baseline gap-1">
+          <span id="kpi-week-elev" class="text-2xl sm:text-3xl font-extrabold text-white">0</span>
+          <span id="kpi-week-elev-target" class="text-[11px] sm:text-xs text-slate-400 truncate">/ 850m</span>
         </div>
-        <div class="mt-2.5">
-          <div class="flex justify-between text-[11px] text-slate-400 mb-1">
-            <span>Target Montagna</span>
+        <div class="mt-2 sm:mt-2.5">
+          <div class="flex justify-between text-[10px] sm:text-[11px] text-slate-400 mb-1">
+            <span>Target D+</span>
             <span id="kpi-elev-percent" class="text-emerald-400 font-bold">0%</span>
           </div>
           <div class="w-full bg-[#020202] rounded-full h-1.5 overflow-hidden border border-[#04471C]">
             <div id="kpi-elev-bar" class="bg-[#16DB65] h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
           </div>
+        </div>
+      </div>
+
+      <!-- Race Countdown KPI (Always visible on mobile) -->
+      <div class="glass-panel glass-card-hover rounded-2xl p-3.5 sm:p-4 border border-[#16DB65]/40 bg-[#0D2818]/90 relative overflow-hidden">
+        <div class="flex items-center justify-between text-slate-400 mb-1.5">
+          <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-[#16DB65] flex items-center gap-1">
+            <i class="ph-bold ph-flag-banner"></i> Alla Gara
+          </span>
+          <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#16DB65]/20 text-[#16DB65] border border-[#16DB65]/30">8 Mag '27</span>
+        </div>
+        <div class="flex items-baseline gap-1">
+          <span id="kpi-countdown-days" class="text-2xl sm:text-3xl font-extrabold text-white">--</span>
+          <span class="text-xs text-slate-300 font-semibold">giorni</span>
+        </div>
+        <div class="mt-2 sm:mt-2.5 pt-1 border-t border-[#04471C]/60 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-300 font-mono">
+          <span id="kpi-countdown-months" class="text-[#16DB65] font-bold">-- m</span>
+          <span class="text-slate-500">·</span>
+          <span id="kpi-countdown-weeks" class="text-emerald-300 font-bold">-- sett</span>
+          <span class="text-slate-500">·</span>
+          <span id="kpi-countdown-rem-days" class="text-slate-200">-- gg</span>
         </div>
       </div>
 
@@ -239,25 +260,19 @@
             <i class="ph-bold ph-calendar text-[#16DB65]"></i>
             Pianificazione Allenamenti (34 Settimane)
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">Seleziona il Mese e la Settimana per consultare o modificare gli allenamenti</p>
+          <p class="text-xs text-slate-400 mt-0.5">Seleziona il Mese e la Settimana per consultare o registrare le sessioni</p>
         </div>
-        <div id="phase-badge-container" class="flex items-center gap-2 flex-wrap">
-          <!-- Injected dynamically -->
-        </div>
+        <div id="phase-badge-container" class="flex items-center gap-2 flex-wrap"></div>
       </div>
 
       <!-- Month Tabs Bar -->
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1.5" id="month-tabs-container">
-        <!-- Injected via JS -->
-      </div>
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1.5" id="month-tabs-container"></div>
 
       <!-- Weeks in Selected Month Sub-bar -->
-      <div class="flex items-center gap-2 overflow-x-auto pt-1 pb-1" id="week-tabs-container">
-        <!-- Injected via JS -->
-      </div>
+      <div class="flex items-center gap-2 overflow-x-auto pt-1 pb-1" id="week-tabs-container"></div>
     </div>
 
-    <!-- Main Content: Left = Daily Workouts, Right = Weight Trajectory & Nutrition -->
+    <!-- Main Content: Left = Daily Workouts, Right = Weight Trajectory Chart -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       <!-- Left 2 Cols: Workouts List -->
@@ -276,15 +291,11 @@
         </div>
 
         <!-- Workouts List Container -->
-        <div id="active-workouts-list" class="space-y-3">
-          <!-- Injected via renderActiveWeek() -->
-        </div>
+        <div id="active-workouts-list" class="space-y-3"></div>
       </div>
 
-      <!-- Right Col: Weight Chart & Nutrition -->
+      <!-- Right Col: Weight Trajectory Chart -->
       <div class="space-y-4">
-
-        <!-- Weight Trajectory Chart Card -->
         <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#04471C] shadow-xl space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -296,24 +307,10 @@
             </button>
           </div>
           <p class="text-[11px] text-slate-400">Target calo: -0.7 kg / settimana a digiuno la domenica.</p>
-          <div class="h-52 w-full relative">
+          <div class="h-64 w-full relative">
             <canvas id="weightChart"></canvas>
           </div>
         </div>
-
-        <!-- Nutrition & Office Tips Card -->
-        <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-[#04471C] space-y-2.5">
-          <div class="flex items-center gap-2">
-            <i class="ph-bold ph-fork-knife text-[#058C42] text-lg"></i>
-            <h3 class="text-sm font-bold text-white">Promemoria Mensa & Orari Ufficio</h3>
-          </div>
-          <div class="text-[11px] text-slate-300 space-y-1.5 leading-relaxed">
-            <p><strong>Mensa:</strong> 80g di riso semplice (100g post-Bollettone), proteina pulita (pollo/tonno/uova) e verdure a sazietà. Limita l'olio a 1 cucchiaio.</p>
-            <p><strong>Spuntino 17:00:</strong> 1 banana + caffè prima di tornare a casa per avere glicogeno pronto alle 19:00.</p>
-            <p><strong>Acqua:</strong> Bevi almeno 2L d'acqua in ufficio tra le 7:50 e le 18:30.</p>
-          </div>
-        </div>
-
       </div>
 
     </div>
@@ -413,17 +410,18 @@
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Tipologia</label>
             <select id="editorTypeInput" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
-              <option value="trail">Trail Running (Bollettone / Montagna)</option>
-              <option value="run">Corsa Rigenerante (Z2 - Fondo Lento)</option>
-              <option value="gym">Home Gym (Forza A o B)</option>
-              <option value="rest">Riposo / Mobilità</option>
+              <option value="trail">Trail Running</option>
+              <option value="run">Corsa Strada Z2</option>
+              <option value="gym">GYM</option>
+              <option value="rest">Rest day</option>
+              <option value="extra">Extra / Altro Sport</option>
             </select>
           </div>
         </div>
 
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Titolo Sessione</label>
-          <input type="text" id="editorTitleInput" required placeholder="es. Trail Bollettone" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
+          <input type="text" id="editorTitleInput" required placeholder="es. Trail Running" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
         </div>
 
         <div class="grid grid-cols-3 gap-3">
@@ -532,6 +530,21 @@
       { id: '2027-05', label: 'Maggio 2027 (Gara)', weeks: [33, 34] }
     ];
 
+    function getCurrentWeekInfo() {
+      const now = new Date();
+      const diffMs = now.getTime() - START_DATE.getTime();
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      let weekNum = Math.floor(diffDays / 7) + 1;
+      if (weekNum < 1) weekNum = 1;
+      if (weekNum > 34) weekNum = 34;
+      const monthObj = MONTHS.find(m => m.weeks.includes(weekNum)) || MONTHS[0];
+      return {
+        weekNumber: weekNum,
+        monthId: monthObj.id,
+        todayDateStr: now.toISOString().split('T')[0]
+      };
+    }
+
     function generateInitialPlan() {
       const plan = [];
       const dayNames = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'];
@@ -570,7 +583,7 @@
             week: w,
             day: dayNames[0],
             dateOffset: 0,
-            title: 'Home Gym - Forza A (Catena Posteriore & Gambe)',
+            title: 'GYM',
             type: 'gym',
             targetKm: 0,
             targetElev: 0,
@@ -587,7 +600,7 @@
             week: w,
             day: dayNames[1],
             dateOffset: 1,
-            title: 'Corsa Rigenerante (Z2 - Fondo Lento)',
+            title: 'Corsa Strada Z2',
             type: 'run',
             targetKm: Number(z2Km.toFixed(1)),
             targetElev: 40,
@@ -604,7 +617,7 @@
             week: w,
             day: dayNames[2],
             dateOffset: 2,
-            title: 'Trail Bollettone con Colleghi',
+            title: 'Trail Running',
             type: 'trail',
             targetKm: 8.0,
             targetElev: 480,
@@ -621,7 +634,7 @@
             week: w,
             day: dayNames[3],
             dateOffset: 3,
-            title: 'Home Gym - Forza B (Upper Body & Core)',
+            title: 'GYM',
             type: 'gym',
             targetKm: 0,
             targetElev: 0,
@@ -638,7 +651,7 @@
             week: w,
             day: dayNames[4],
             dateOffset: 4,
-            title: 'Riposo Totale & Idratazione',
+            title: 'Rest day',
             type: 'rest',
             targetKm: 0,
             targetElev: 0,
@@ -655,7 +668,7 @@
             week: w,
             day: dayNames[5],
             dateOffset: 5,
-            title: w === 34 ? '🏁 GARA: UTLAC 60 (8 Maggio 2027)' : `Lungo Trail (${Math.round(longRunKm)} km)`,
+            title: w === 34 ? '🏁 GARA: UTLAC 60 (8 Maggio 2027)' : 'Trail Running',
             type: 'trail',
             targetKm: Number(longRunKm.toFixed(1)),
             targetElev: Math.round(longRunElev),
@@ -672,7 +685,7 @@
             week: w,
             day: dayNames[6],
             dateOffset: 6,
-            title: 'Riposo Attivo & Pesata Mattutina',
+            title: 'Rest day',
             type: 'rest',
             targetKm: 0,
             targetElev: 0,
@@ -723,6 +736,7 @@
     }
 
     function initDatabase() {
+      const current = getCurrentWeekInfo();
       const saved = localStorage.getItem('utlac60_state_v1');
       if (saved) {
         try {
@@ -731,13 +745,18 @@
             appState.weeks.forEach(w => {
               w.workouts.forEach(wo => {
                 if (wo.title) {
-                  wo.title = wo.title.replace(' & Ginocchio Dx', '').replace(' (Salita & Discesa Tecnica)', '').replace(' - Costruzione Volume', '');
+                  const t = wo.title.toLowerCase();
+                  if (t.includes('home gym')) wo.title = 'GYM';
+                  else if (t.includes('corsa rigenerante')) wo.title = 'Corsa Strada Z2';
+                  else if (t.includes('bollettone') || t.includes('lungo trail')) {
+                    if (!t.includes('gara')) wo.title = 'Trail Running';
+                  }
+                  else if (t.includes('riposo')) wo.title = 'Rest day';
                 }
                 delete wo.kneePain;
               });
             });
             delete appState.currentKneePain;
-            saveState();
           } else {
             appState.weeks = generateInitialPlan();
           }
@@ -751,6 +770,10 @@
       if (!appState.weeks || appState.weeks.length === 0) {
         appState.weeks = generateInitialPlan();
       }
+
+      appState.activeMonthId = current.monthId;
+      appState.activeWeekNumber = current.weekNumber;
+      saveState();
     }
 
     function renderNavigation() {
@@ -829,13 +852,14 @@
     }
 
     function jumpToCurrentWeek() {
-      appState.activeMonthId = '2026-09';
-      appState.activeWeekNumber = 1;
+      const current = getCurrentWeekInfo();
+      appState.activeMonthId = current.monthId;
+      appState.activeWeekNumber = current.weekNumber;
       saveState();
       renderNavigation();
       renderActiveWeek();
       updateMetrics();
-      showToast('Tornato alla Settimana 1 (Oggi)');
+      showToast(`Settimana ${current.weekNumber} selezionata`);
     }
 
     function toggleWorkoutCheck(workoutId) {
@@ -854,7 +878,7 @@
         renderActiveWeek();
         renderWeeksSubBar();
         updateMetrics();
-        showToast('Spunta rimossa: allenamento contrassegnato come da fare.');
+        showToast('Allenamento segnato come da fare.');
       } else {
         promptCompleteWorkout(workoutId);
       }
@@ -878,12 +902,31 @@
       renderActiveWeek();
       renderWeeksSubBar();
       updateMetrics();
-      showToast('Allenamento contrassegnato come da fare.');
+      showToast('Allenamento segnato come da fare.');
+    }
+
+    function moveWorkout(workoutId, direction) {
+      const week = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
+      if (!week || !week.workouts) return;
+      const idx = week.workouts.findIndex(w => w.id === workoutId);
+      if (idx === -1) return;
+      const targetIdx = idx + direction;
+      if (targetIdx < 0 || targetIdx >= week.workouts.length) return;
+
+      // Scambia posizione nella lista
+      const temp = week.workouts[idx];
+      week.workouts[idx] = week.workouts[targetIdx];
+      week.workouts[targetIdx] = temp;
+
+      saveState();
+      renderActiveWeek();
     }
 
     function renderActiveWeek() {
       const weekData = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
       if (!weekData) return;
+
+      const todayStr = new Date().toISOString().split('T')[0];
 
       document.getElementById('active-week-title').textContent = `Settimana ${weekData.weekNumber}`;
       document.getElementById('active-week-dates').textContent = `(${weekData.dateRangeString})`;
@@ -892,9 +935,23 @@
       const listContainer = document.getElementById('active-workouts-list');
       listContainer.innerHTML = '';
 
-      weekData.workouts.forEach((workout) => {
+      weekData.workouts.forEach((workout, index) => {
+        const isFirst = index === 0;
+        const isLast = index === weekData.workouts.length - 1;
+        const wStartDate = new Date(weekData.startDate);
+        const workoutDate = new Date(wStartDate);
+        if (workout.dateOffset !== undefined) {
+          workoutDate.setDate(wStartDate.getDate() + workout.dateOffset);
+        }
+        const workoutDateStr = workoutDate.toISOString().split('T')[0];
+        const isToday = (workoutDateStr === todayStr);
+
         const card = document.createElement('div');
         card.className = `p-4 rounded-2xl border transition-all ${
+          isToday
+            ? 'ring-2 ring-[#16DB65] ring-offset-2 ring-offset-[#020202] '
+            : ''
+        } ${
           workout.completed
             ? 'bg-[#0D2818]/90 border-[#16DB65]/60 shadow-[0_0_15px_-4px_rgba(22,219,101,0.2)]'
             : 'bg-[#0D2818]/40 hover:bg-[#0D2818]/70 border-[#04471C]'
@@ -915,11 +972,15 @@
         } else if (workout.type === 'gym') {
           typeBadge = 'bg-[#0D2818] text-[#16DB65] border-[#04471C]';
           typeIcon = 'ph-barbell';
-          typeLabel = 'Home Gym';
+          typeLabel = 'GYM';
+        } else if (workout.type === 'extra') {
+          typeBadge = 'bg-amber-900/30 text-amber-300 border-amber-500/40';
+          typeIcon = 'ph-lightning';
+          typeLabel = 'Extra';
         } else {
           typeBadge = 'bg-[#020202] text-slate-400 border-[#04471C]';
           typeIcon = 'ph-bed';
-          typeLabel = 'Riposo';
+          typeLabel = 'Rest';
         }
 
         const statsTargetString = workout.targetKm > 0
@@ -936,10 +997,15 @@
               </button>
 
               <div class="flex-grow min-w-0">
-                <div class="flex flex-wrap items-center gap-2 mb-1">
+                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
                   <span class="text-xs font-bold ${workout.completed ? 'text-[#16DB65]' : 'text-slate-400'}">
                     ${workout.day}
                   </span>
+                  ${isToday ? `
+                    <span class="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-[#16DB65] text-[#020202] shadow-[0_0_8px_rgba(22,219,101,0.6)] flex items-center gap-0.5">
+                      <i class="ph-bold ph-calendar-check"></i> OGGI
+                    </span>
+                  ` : ''}
                   <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${typeBadge} flex items-center gap-1">
                     <i class="ph-bold ${typeIcon}"></i> ${typeLabel}
                   </span>
@@ -981,8 +1047,14 @@
               </div>
             </div>
 
-            <!-- Action Buttons -->
+            <!-- Action Buttons with Reorder Arrows -->
             <div class="flex items-center gap-1 flex-shrink-0">
+              <button onclick="moveWorkout('${workout.id}', -1)" class="p-1.5 rounded-lg bg-[#0D2818] hover:bg-[#04471C] border border-[#04471C] text-slate-400 hover:text-[#16DB65] text-xs transition ${isFirst ? 'opacity-25 cursor-not-allowed pointer-events-none' : 'active:scale-95'}" title="Sposta su">
+                <i class="ph-bold ph-caret-up text-sm"></i>
+              </button>
+              <button onclick="moveWorkout('${workout.id}', 1)" class="p-1.5 rounded-lg bg-[#0D2818] hover:bg-[#04471C] border border-[#04471C] text-slate-400 hover:text-[#16DB65] text-xs transition ${isLast ? 'opacity-25 cursor-not-allowed pointer-events-none' : 'active:scale-95'}" title="Sposta giù">
+                <i class="ph-bold ph-caret-down text-sm"></i>
+              </button>
               <button onclick="promptCompleteWorkout('${workout.id}')" class="p-1.5 rounded-lg bg-[#0D2818] hover:bg-[#16DB65] hover:text-[#020202] border border-[#04471C] text-slate-300 text-xs transition" title="Registra dati consuntivi">
                 <i class="ph-bold ph-pencil-simple text-sm"></i>
               </button>
@@ -1023,7 +1095,7 @@
       document.getElementById('kpi-km-bar').style.width = `${kmPercent}%`;
 
       document.getElementById('kpi-week-elev').textContent = Math.round(totalElev);
-      document.getElementById('kpi-week-elev-target').textContent = `/ ${Math.round(targetElev)}m D+`;
+      document.getElementById('kpi-week-elev-target').textContent = `/ ${Math.round(targetElev)}m`;
 
       const elevPercent = targetElev > 0 ? Math.min(100, Math.round((totalElev / targetElev) * 100)) : 0;
       document.getElementById('kpi-elev-percent').textContent = `${elevPercent}%`;
@@ -1045,9 +1117,30 @@
       document.getElementById('kpi-weight-percent').textContent = `${weightPercent}%`;
       document.getElementById('kpi-weight-bar').style.width = `${weightPercent}%`;
 
-      const today = new Date('2026-09-14T12:00:00');
-      const diffDays = Math.ceil((RACE_DATE - today) / (1000 * 60 * 60 * 24));
-      document.getElementById('header-countdown').textContent = `${diffDays} gg (34 sett)`;
+      // Live Countdown with months, weeks and days
+      const now = new Date();
+      const diffMs = RACE_DATE.getTime() - now.getTime();
+      const totalDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+      const approxMonths = Math.floor(totalDays / 30.4375);
+      const remainingDaysAfterMonths = totalDays - Math.floor(approxMonths * 30.4375);
+      const approxWeeks = Math.floor(remainingDaysAfterMonths / 7);
+      const remDays = remainingDaysAfterMonths % 7;
+
+      document.getElementById('kpi-countdown-days').textContent = totalDays;
+      document.getElementById('kpi-countdown-months').textContent = `${approxMonths} mesi`;
+      document.getElementById('kpi-countdown-weeks').textContent = `${approxWeeks} sett`;
+      document.getElementById('kpi-countdown-rem-days').textContent = `${remDays} gg`;
+
+      const headerCountdown = document.getElementById('header-countdown');
+      if (headerCountdown) {
+        headerCountdown.textContent = `${totalDays} gg (${approxMonths}m ${approxWeeks}s)`;
+      }
+
+      const currentInfo = getCurrentWeekInfo();
+      const headerWeekNum = document.getElementById('header-current-w-num');
+      if (headerWeekNum) {
+        headerWeekNum.textContent = currentInfo.weekNumber;
+      }
 
       updateWeightChart();
     }
@@ -1253,10 +1346,23 @@
       const targetDuration = parseInt(document.getElementById('editorTargetDurationInput').value) || 0;
       const details = document.getElementById('editorDetailsInput').value;
 
+      const dayOrderMap = {
+        'lun': 0, 'mar': 1, 'mer': 2, 'gio': 3, 'ven': 4, 'sab': 5, 'dom': 6
+      };
+      let detectedOffset = 3; // fallback a metà settimana se non specificato
+      const dayLower = day.toLowerCase();
+      for (const [key, offsetVal] of Object.entries(dayOrderMap)) {
+        if (dayLower.includes(key)) {
+          detectedOffset = offsetVal;
+          break;
+        }
+      }
+
       if (currentEditingWorkoutId) {
         const workout = week.workouts.find(w => w.id === currentEditingWorkoutId);
         if (workout) {
           workout.day = day;
+          workout.dateOffset = detectedOffset;
           workout.type = type;
           workout.title = title;
           workout.targetKm = targetKm;
@@ -1270,6 +1376,7 @@
           id: `custom_${Date.now()}`,
           week: week.weekNumber,
           day: day,
+          dateOffset: detectedOffset,
           title: title,
           type: type,
           targetKm: targetKm,
@@ -1282,7 +1389,20 @@
           actualDuration: 0,
           notes: ''
         };
-        week.workouts.push(newWorkout);
+
+        // Inserimento intelligente nella posizione cronologica corretta rispetto ai giorni esistenti
+        let inserted = false;
+        for (let i = 0; i < week.workouts.length; i++) {
+          const wOffset = week.workouts[i].dateOffset !== undefined ? week.workouts[i].dateOffset : 0;
+          if (wOffset > detectedOffset) {
+            week.workouts.splice(i, 0, newWorkout);
+            inserted = true;
+            break;
+          }
+        }
+        if (!inserted) {
+          week.workouts.push(newWorkout);
+        }
         showToast('Nuovo allenamento aggiunto!');
       }
 
