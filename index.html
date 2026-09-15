@@ -229,7 +229,7 @@
         </div>
       </div>
 
-      <!-- Race Countdown KPI (Always visible on mobile) -->
+      <!-- Race Countdown KPI -->
       <div class="glass-panel glass-card-hover rounded-2xl p-3.5 sm:p-4 border border-[#16DB65]/40 bg-[#0D2818]/90 relative overflow-hidden">
         <div class="flex items-center justify-between text-slate-400 mb-1.5">
           <span class="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-[#16DB65] flex items-center gap-1">
@@ -405,7 +405,7 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Giorno della settimana</label>
-            <input type="text" id="editorDayInput" required placeholder="es. Mercoledì 16 Set" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
+            <input type="text" id="editorDayInput" required placeholder="es. Martedì" class="w-full bg-[#020202] border border-[#04471C] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#16DB65]">
           </div>
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Tipologia</label>
@@ -513,8 +513,10 @@
   </div>
 
   <script>
-    const START_DATE = new Date('2026-09-14T00:00:00');
-    const RACE_DATE = new Date('2027-05-08T07:00:00');
+    // Configurazione date locali (evita shift da fuso orario UTC)
+    const START_YEAR = 2026, START_MONTH = 8, START_DAY = 14; // 14 Settembre 2026
+    const START_DATE = new Date(START_YEAR, START_MONTH, START_DAY, 0, 0, 0);
+    const RACE_DATE = new Date(2027, 4, 8, 7, 0, 0); // 8 Maggio 2027 07:00
     const START_WEIGHT = 89.0;
     const TARGET_WEIGHT = 78.0;
 
@@ -530,18 +532,34 @@
       { id: '2027-05', label: 'Maggio 2027 (Gara)', weeks: [33, 34] }
     ];
 
+    function toLocalDateStr(d) {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
     function getCurrentWeekInfo() {
       const now = new Date();
-      const diffMs = now.getTime() - START_DATE.getTime();
-      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const startLocal = new Date(START_YEAR, START_MONTH, START_DAY, 0, 0, 0);
+      const todayLocal = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+      
+      const diffMs = todayLocal.getTime() - startLocal.getTime();
+      const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+      
       let weekNum = Math.floor(diffDays / 7) + 1;
       if (weekNum < 1) weekNum = 1;
       if (weekNum > 34) weekNum = 34;
+
+      // 0 = Lunedì, 1 = Martedì, ..., 6 = Domenica
+      const todayWeekday = (now.getDay() + 6) % 7;
+
       const monthObj = MONTHS.find(m => m.weeks.includes(weekNum)) || MONTHS[0];
       return {
         weekNumber: weekNum,
         monthId: monthObj.id,
-        todayDateStr: now.toISOString().split('T')[0]
+        todayWeekday: todayWeekday,
+        todayDateStr: toLocalDateStr(now)
       };
     }
 
@@ -550,8 +568,7 @@
       const dayNames = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'];
 
       for (let w = 1; w <= 34; w++) {
-        const weekStartDate = new Date(START_DATE);
-        weekStartDate.setDate(START_DATE.getDate() + (w - 1) * 7);
+        const weekStartDate = new Date(START_YEAR, START_MONTH, START_DAY + (w - 1) * 7);
 
         let phase = 'Fase 1: Base & Cut';
         let phaseColor = 'text-[#16DB65] bg-[#16DB65]/10 border-[#16DB65]/30';
@@ -699,16 +716,15 @@
           }
         ];
 
-        const weekEndDate = new Date(weekStartDate);
-        weekEndDate.setDate(weekStartDate.getDate() + 6);
+        const weekEndDate = new Date(START_YEAR, START_MONTH, START_DAY + (w - 1) * 7 + 6);
         const formatShort = (d) => `${d.getDate()} ${d.toLocaleString('it', { month: 'short' })}`;
 
         plan.push({
           weekNumber: w,
           phase: phase,
           phaseColor: phaseColor,
-          startDate: weekStartDate.toISOString().split('T')[0],
-          endDate: weekEndDate.toISOString().split('T')[0],
+          startDate: toLocalDateStr(weekStartDate),
+          endDate: toLocalDateStr(weekEndDate),
           dateRangeString: `${formatShort(weekStartDate)} - ${formatShort(weekEndDate)}`,
           targetWeight: Math.max(TARGET_WEIGHT, Number((START_WEIGHT - (w * 0.7)).toFixed(1))),
           actualWeight: w === 1 ? 89.0 : null,
@@ -742,6 +758,8 @@
         try {
           appState = JSON.parse(saved);
           if (appState.weeks && Array.isArray(appState.weeks)) {
+            // Migrazione automatica: correzione dateOffset e titoli generici
+            const dayOrderMap = { 'lun': 0, 'mar': 1, 'mer': 2, 'gio': 3, 'ven': 4, 'sab': 5, 'dom': 6 };
             appState.weeks.forEach(w => {
               w.workouts.forEach(wo => {
                 if (wo.title) {
@@ -752,6 +770,15 @@
                     if (!t.includes('gara')) wo.title = 'Trail Running';
                   }
                   else if (t.includes('riposo')) wo.title = 'Rest day';
+                }
+                if (wo.day) {
+                  const dLow = wo.day.toLowerCase();
+                  for (const [prefix, offsetVal] of Object.entries(dayOrderMap)) {
+                    if (dLow.includes(prefix)) {
+                      wo.dateOffset = offsetVal;
+                      break;
+                    }
+                  }
                 }
                 delete wo.kneePain;
               });
@@ -913,7 +940,6 @@
       const targetIdx = idx + direction;
       if (targetIdx < 0 || targetIdx >= week.workouts.length) return;
 
-      // Scambia posizione nella lista
       const temp = week.workouts[idx];
       week.workouts[idx] = week.workouts[targetIdx];
       week.workouts[targetIdx] = temp;
@@ -926,7 +952,8 @@
       const weekData = appState.weeks.find(w => w.weekNumber === appState.activeWeekNumber);
       if (!weekData) return;
 
-      const todayStr = new Date().toISOString().split('T')[0];
+      const currentInfo = getCurrentWeekInfo();
+      const isViewingCurrentWeek = (weekData.weekNumber === currentInfo.weekNumber);
 
       document.getElementById('active-week-title').textContent = `Settimana ${weekData.weekNumber}`;
       document.getElementById('active-week-dates').textContent = `(${weekData.dateRangeString})`;
@@ -938,23 +965,17 @@
       weekData.workouts.forEach((workout, index) => {
         const isFirst = index === 0;
         const isLast = index === weekData.workouts.length - 1;
-        const wStartDate = new Date(weekData.startDate);
-        const workoutDate = new Date(wStartDate);
-        if (workout.dateOffset !== undefined) {
-          workoutDate.setDate(wStartDate.getDate() + workout.dateOffset);
-        }
-        const workoutDateStr = workoutDate.toISOString().split('T')[0];
-        const isToday = (workoutDateStr === todayStr);
+
+        // Rilevamento esatto: è oggi se stiamo guardando la settimana corrente e l'offset del giorno coincide con oggi
+        const isToday = isViewingCurrentWeek && (workout.dateOffset === currentInfo.todayWeekday);
 
         const card = document.createElement('div');
         card.className = `p-4 rounded-2xl border transition-all ${
           isToday
-            ? 'ring-2 ring-[#16DB65] ring-offset-2 ring-offset-[#020202] '
-            : ''
-        } ${
-          workout.completed
-            ? 'bg-[#0D2818]/90 border-[#16DB65]/60 shadow-[0_0_15px_-4px_rgba(22,219,101,0.2)]'
-            : 'bg-[#0D2818]/40 hover:bg-[#0D2818]/70 border-[#04471C]'
+            ? 'ring-2 ring-[#16DB65] ring-offset-2 ring-offset-[#020202] bg-[#0D2818]/90 '
+            : workout.completed
+              ? 'bg-[#0D2818]/90 border-[#16DB65]/60 shadow-[0_0_15px_-4px_rgba(22,219,101,0.2)]'
+              : 'bg-[#0D2818]/40 hover:bg-[#0D2818]/70 border-[#04471C]'
         }`;
 
         let typeBadge = 'bg-[#04471C] text-slate-300 border-[#058C42]/40';
@@ -998,7 +1019,7 @@
 
               <div class="flex-grow min-w-0">
                 <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
-                  <span class="text-xs font-bold ${workout.completed ? 'text-[#16DB65]' : 'text-slate-400'}">
+                  <span class="text-xs font-bold ${isToday ? 'text-[#16DB65]' : workout.completed ? 'text-[#16DB65]' : 'text-slate-300'}">
                     ${workout.day}
                   </span>
                   ${isToday ? `
@@ -1117,7 +1138,7 @@
       document.getElementById('kpi-weight-percent').textContent = `${weightPercent}%`;
       document.getElementById('kpi-weight-bar').style.width = `${weightPercent}%`;
 
-      // Live Countdown with months, weeks and days
+      // Countdown alla gara
       const now = new Date();
       const diffMs = RACE_DATE.getTime() - now.getTime();
       const totalDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
@@ -1349,7 +1370,7 @@
       const dayOrderMap = {
         'lun': 0, 'mar': 1, 'mer': 2, 'gio': 3, 'ven': 4, 'sab': 5, 'dom': 6
       };
-      let detectedOffset = 3; // fallback a metà settimana se non specificato
+      let detectedOffset = 3;
       const dayLower = day.toLowerCase();
       for (const [key, offsetVal] of Object.entries(dayOrderMap)) {
         if (dayLower.includes(key)) {
@@ -1390,7 +1411,6 @@
           notes: ''
         };
 
-        // Inserimento intelligente nella posizione cronologica corretta rispetto ai giorni esistenti
         let inserted = false;
         for (let i = 0; i < week.workouts.length; i++) {
           const wOffset = week.workouts[i].dateOffset !== undefined ? week.workouts[i].dateOffset : 0;
